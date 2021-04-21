@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebAppMVCbasics2app.Models.ViewModel
 {
-    public class PeopleViewModel
+    public class PeopleViewModel 
     {
-        //CreatePersonViewModel – Use to prevent overposting and to use data
+        //PeopleViewModel – container for the information you need in your people view.
 
         [Required]
         public string Name { get; set; }
@@ -17,6 +17,6 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         [Required]
         public string City { get; set; }
 
-        public List<PeopleViewModel> PeopleList { get; set; }
+        public List<Person> PeopleList { get; set; }
     }
 }

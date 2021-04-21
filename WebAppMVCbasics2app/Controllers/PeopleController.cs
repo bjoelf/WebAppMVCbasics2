@@ -4,19 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models;
-
+using WebAppMVCbasics2app.Models.ViewModel;
 
 namespace WebAppMVCbasics2app.Controllers
 {
+
     public class PeopleController : Controller
     {
+        IPeopleService _peopleService = new PeopleService();
+
         public IActionResult Index()
         {
-            return View();
+            return View(_peopleService.All());
         }
-        public IActionResult Add()
+
+        [HttpPost]
+        public IActionResult Index(CreatePersonViewModel createPersonViewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _peopleService.Add(createPersonViewModel);
+            }
+            return View(_peopleService.All());
         }
     }
 }

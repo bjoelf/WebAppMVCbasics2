@@ -8,7 +8,7 @@ namespace WebAppMVCbasics2app.Models
 {
     public interface IPeopleRepo
     {
-        public Person Create(string name, string phone, string city);
+        public Person Create(Person person);
         public List<Person> Read();
         public Person Read(int id);
         public Person Update(Person person);

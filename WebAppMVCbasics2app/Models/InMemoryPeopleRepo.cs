@@ -7,32 +7,41 @@ namespace WebAppMVCbasics2app.Models
 {
     public class InMemoryPeopleRepo : IPeopleRepo
     {
-        private static List<Person> PersonList { get; set; }
-        private static int idCounter { get; set; }
+        static List<Person> PersonList = new List<Person>();
+        static int idCounter = 0;
 
-        public Person Create(string name, string phone, string city)
+        public Person Create(Person person)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(Person person)
-        {
-            throw new NotImplementedException();
+            person.Id = ++idCounter;
+            PersonList.Add(person);
+            return person;
         }
 
         public List<Person> Read()
         {
-            throw new NotImplementedException();
+            return PersonList;
         }
 
         public Person Read(int id)
         {
-            throw new NotImplementedException();
+            Person p = PersonList.Find(x => x.Id == id);
+            return p;
         }
 
         public Person Update(Person person)
         {
-            throw new NotImplementedException();
+            //TODO: testa om denna funkar!
+            PersonList[person.Id] = person;
+            return PersonList[person.Id];
+        }
+        public bool Delete(Person person)
+        {
+            //TODO: testa även denna!
+            PersonList.Remove(person);
+            Person person1 = Read(person.Id);
+            if (person1 != null)
+                return true;
+            return false;
         }
     }
 }

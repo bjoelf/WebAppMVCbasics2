@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PeopleViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">People start here!</h1>
+</div>
+
+<br />  
+
+<form class="text-center" asp-action="Index" asp-controller="People" method="post">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+
+    <label asp-for="Phone"></label>
+    <input asp-for="Phone" />
+    <span asp-validation-for="Phone"></span>
+
+    <label asp-for="City"></label>
+    <input asp-for="City" />
+    <span asp-validation-for="City"></span>
+    <button>Add</button>
+</form>
+
+
+<br />
+
+<table>
+    @foreach (var item in Model.PeopleList)
+    {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Phone</td>
+        <td>@item.City</td>
+    </tr>
+    }
+</table>

@@ -18,5 +18,7 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         public string City { get; set; }
 
         public List<Person> PeopleList { get; set; }
+
+        public string Search { get; set; }
     }
 }

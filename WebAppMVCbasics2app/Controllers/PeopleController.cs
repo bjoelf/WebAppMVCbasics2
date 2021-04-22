@@ -13,6 +13,7 @@ namespace WebAppMVCbasics2app.Controllers
     {
         IPeopleService _peopleService = new PeopleService();
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View(_peopleService.All());
@@ -26,6 +27,25 @@ namespace WebAppMVCbasics2app.Controllers
                 _peopleService.Add(createPersonViewModel);
             }
             return View(_peopleService.All());
+        }
+       
+        public IActionResult Delete(int id)
+        {
+            _peopleService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Index(PeopleViewModel list)
+        {
+            return View(list);
+        }
+
+        public IActionResult Filter(PeopleViewModel filter)
+        {
+            //Skapa NY lista och skicka den!
+            PeopleViewModel pvm = _peopleService.FindBy(filter);
+            return View("Index", pvm);
+            //return RedirectToAction(nameof(Index(pvm));
         }
     }
 }

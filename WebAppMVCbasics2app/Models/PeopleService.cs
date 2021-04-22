@@ -13,7 +13,7 @@ namespace WebAppMVCbasics2app.Models
 
         public PeopleService()
         {
-            //Only need to alter this line of code in change data source 
+            //Only need to alter this line of code in changeing data source 
             _peopleRepo = new InMemoryPeopleRepo();
         }
 
@@ -36,42 +36,43 @@ namespace WebAppMVCbasics2app.Models
             return vm;
         }
 
-        public PeopleViewModel FindBy(PeopleViewModel search)
+        public PeopleViewModel FindBy(PeopleViewModel find)
         {
             PeopleViewModel pvm = new PeopleViewModel();
+            pvm.PeopleList = new List<Person>();
+
             foreach (Person item in _peopleRepo.Read())
             {
-                if (item.Name == search.Name || item.City == search.City)
-                {
+                //Måste göra om 
+                if (!String.IsNullOrEmpty(find.Search) && item.Name.Contains(find.Search)) {
+                    pvm.PeopleList.Add(item);
+                }
+                if (!String.IsNullOrEmpty(find.Search) && item.City.Contains(find.Search)) {
                     pvm.PeopleList.Add(item);
                 }
             }
             return pvm;
         }
-
         public Person FindBy(int id)
         {
             return _peopleRepo.Read(id);
-
         }
         public Person Edit(int id, Person person)
         {
-            Person p = FindBy(id);
+            Person _person = FindBy(id);
 
-            if (p == null)
+            if (_person == null)
             {
                 return null;
             }
 
-            p.Name = person.Name;
-            p.Phone = person.Phone;
-            p.City = person.City;
+            _person.Name = person.Name;
+            _person.Phone = person.Phone;
+            _person.City = person.City;
 
-            p = _peopleRepo.Update(p);
-
-            return p;
+            _person = _peopleRepo.Update(_person);
+            return _person;
         }
-
         public bool Remove(int id)
         {
             return _peopleRepo.Delete(_peopleRepo.Read(id));

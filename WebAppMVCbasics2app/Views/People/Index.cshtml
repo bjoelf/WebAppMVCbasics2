@@ -10,7 +10,7 @@
     <h1 class="display-4">People start here!</h1>
 </div>
 
-<br />  
+<br />
 
 <form class="text-center" asp-action="Index" asp-controller="People" method="post">
     <label asp-for="Name"></label>
@@ -27,16 +27,26 @@
     <button>Add</button>
 </form>
 
-
 <br />
 
 <table>
     @foreach (var item in Model.PeopleList)
     {
-    <tr>
-        <td>@item.Name</td>
-        <td>@item.Phone</td>
-        <td>@item.City</td>
-    </tr>
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Phone</td>
+            <td>@item.City</td>
+            <td><a asp-action="Delete" asp-controller="People" asp-route-id="@item.Id">Delete</a></td>
+        </tr>
     }
 </table>
+
+<br />
+
+<br />
+
+<form asp-action="Filter" asp-controller="People">
+    <label asp-for="Search"></label>
+    <input asp-for="Search" />
+    <input type="submit" value="Filter by Name or City" />
+</form>

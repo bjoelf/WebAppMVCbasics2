@@ -19,14 +19,14 @@ namespace WebAppMVCbasics2app.Models
 
         public Person Add(CreatePersonViewModel person)
         {
-            Person p = new Person();
+            Person pNew = new Person();
 
-            p.Name = person.Name;
-            p.Phone = person.Phone;
-            p.City = person.City;
+            pNew.Name = person.Name;
+            pNew.Phone = person.Phone;
+            pNew.City = person.City;
 
-            p = _peopleRepo.Create(p);
-            return p;
+            pNew = _peopleRepo.Create(pNew);
+            return pNew;
         }
 
         public PeopleViewModel All()
@@ -36,6 +36,19 @@ namespace WebAppMVCbasics2app.Models
             return vm;
         }
 
+        public PeopleViewModel FindByLambda(PeopleViewModel find)
+        {
+
+            PeopleViewModel pvm = new PeopleViewModel();
+            pvm.PeopleList = new List<Person>();
+            List<Person> repo = _peopleRepo.Read();
+
+            //TODO: Lös Lambda utryck
+            pvm.PeopleList.AddRange((IEnumerable<Person>)repo.Select(x => x.City.Contains(find.Search)));
+            pvm.PeopleList.AddRange((IEnumerable<Person>)repo.Select(x => x.Name.Contains(find.Search)));
+
+            return pvm;
+        }
         public PeopleViewModel FindBy(PeopleViewModel find)
         {
             PeopleViewModel pvm = new PeopleViewModel();
@@ -44,10 +57,12 @@ namespace WebAppMVCbasics2app.Models
             foreach (Person item in _peopleRepo.Read())
             {
                 //Måste göra om 
-                if (!String.IsNullOrEmpty(find.Search) && item.Name.Contains(find.Search)) {
+                if (!String.IsNullOrEmpty(find.Search) && item.Name.Contains(find.Search))
+                {
                     pvm.PeopleList.Add(item);
                 }
-                if (!String.IsNullOrEmpty(find.Search) && item.City.Contains(find.Search)) {
+                if (!String.IsNullOrEmpty(find.Search) && item.City.Contains(find.Search))
+                {
                     pvm.PeopleList.Add(item);
                 }
             }
@@ -77,6 +92,5 @@ namespace WebAppMVCbasics2app.Models
         {
             return _peopleRepo.Delete(_peopleRepo.Read(id));
         }
-
     }
 }

@@ -45,7 +45,6 @@ namespace WebAppMVCbasics2app.Controllers
             //Skapa NY lista och skicka den!
             PeopleViewModel pvm = _peopleService.FindBy(filter);
             return View("Index", pvm);
-            //return RedirectToAction(nameof(Index(pvm));
         }
     }
 }

@@ -27,23 +27,9 @@
     <button>Add</button>
 </form>
 
-<br />
 
-@*<table>
-    @foreach (var item in Model.PeopleList)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Phone</td>
-            <td>@item.City</td>
-            <td><a asp-action="Delete" asp-controller="People" asp-route-id="@item.Id">Delete</a></td>
-        </tr>
-    }
-</table>*@
-
-<br />
 <hr />
-<br />
+
 
 <form asp-action="Filter" asp-controller="People">
     <label asp-for="Search"></label>
@@ -52,6 +38,7 @@
 </form>
 
 <hr />
+
 
 <div>  <h2> People list moved here. Enjoy! </h2> </div>
 
@@ -76,7 +63,7 @@
             </div>
 
         </div>
-        <!--body-->
+        
         @foreach (var item in Model.PeopleList)
         {
             <partial name="../Shared/_PeopleListPartial" model="item" />
@@ -84,3 +71,17 @@
     
    </div>
 </div>
+
+
+
+
+
+
+
+
+
+<hr />
+
+<div>  <h2>People detailes added here! :)</h2> </div>
+
+

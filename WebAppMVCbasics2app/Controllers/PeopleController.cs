@@ -11,7 +11,7 @@ namespace WebAppMVCbasics2app.Controllers
 
     public class PeopleController : Controller
     {
-        IPeopleService _peopleService = new PeopleService();
+        readonly IPeopleService _peopleService = new PeopleService();
 
         [HttpGet]
         public IActionResult Index()
@@ -28,16 +28,22 @@ namespace WebAppMVCbasics2app.Controllers
             }
             return View(_peopleService.All());
         }
-       
-        public IActionResult Delete(int id)
-        {
-            _peopleService.Remove(id);
-            return RedirectToAction(nameof(Index));
-        }
 
         public IActionResult Index(PeopleViewModel list)
         {
             return View(list);
+        }
+
+        //Ny metod
+        public IActionResult Detailes(int id)
+        {
+            Person person = _peopleService.FindBy(id);
+
+            if (person == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(person);
         }
 
         public IActionResult Filter(PeopleViewModel filter)
@@ -45,6 +51,29 @@ namespace WebAppMVCbasics2app.Controllers
             //Skapa NY lista och skicka den!
             PeopleViewModel pvm = _peopleService.FindBy(filter);
             return View("Index", pvm);
+        }
+               
+        //public IActionResult Delete(int id)
+        //{
+        //    _peopleService.Remove(id);
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        public IActionResult Delete(int id)
+        {
+            Person person = _peopleService.FindBy(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            if (_peopleService.Remove(id))
+            {
+                return Ok("Person_" + id);
+            }
+            //return RedirectToAction(nameof(Index));
+            return BadRequest();
         }
     }
 }

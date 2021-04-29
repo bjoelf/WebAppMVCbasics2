@@ -49,7 +49,7 @@ namespace WebAppMVCbasics2app.Models
             //TODO: testa även denna!
             PersonList.Remove(person);
             Person person1 = Read(person.Id);
-            if (person1 != null)
+            if (person1 == null)
                 return true;
             return false;
         }

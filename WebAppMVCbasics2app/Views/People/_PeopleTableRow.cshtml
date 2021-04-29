@@ -1,0 +1,21 @@
+﻿
+@model Person
+
+
+<div class="row">
+    <div class="col-3">
+        <p>@Model.Name</p>
+    </div>
+    <div class="col-3">
+        <p>@Model.Phone</p>
+    </div>
+    <div class="col-3">
+        <p>@Model.City</p>
+    </div>
+    <div class="col-3">
+        @*  routar om från controllern till javascript funktionen! *@
+        @*  <a asp-action="Delete" asp-controller="People" asp-route-id="@Model.Id">Delete</a>*@
+
+        <a asp-action="Delete" asp-route-id="@Model.Id" onclick="deletePerson(this, event)">Delete</a>
+    </div>
+</div>

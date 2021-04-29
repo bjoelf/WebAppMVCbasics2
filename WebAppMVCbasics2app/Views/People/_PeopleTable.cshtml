@@ -1,0 +1,31 @@
+﻿@model PeopleViewModel
+
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-3">
+
+                <h5>Name</h5>
+            </div>
+
+            <div class="col-3">
+                <h5>Phone</h5>
+            </div>
+
+            <div class="col-3">
+                <h5>City</h5>
+            </div>
+
+            <div class="col-3">
+                <h5>Delete</h5>
+            </div>
+
+        </div>
+
+        @foreach (var item in Model.PeopleList)
+        {
+            <partial name="_PeopleTableRow" model="item" />
+        }
+
+    </div>
+</div>

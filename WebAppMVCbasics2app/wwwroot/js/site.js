@@ -15,15 +15,16 @@ function deletePerson(element, event) {
     var deleteUrl = event.target.href;
 
     $.get(deleteUrl, function (data, status) {
-        alert("Data: " + data + "\nStatus: " + status);
+        //alert("Data: " + data + "\nStatus: " + status);
 
         //deleteUrl = "https://localhost:44386/People/Delete/3"
         console.log(deleteUrl);
 
         //data = "Person_2"
         console.log(data);
+
+        //Funkar hit!
         $("#" + data).remove();
     })
-
 
 }

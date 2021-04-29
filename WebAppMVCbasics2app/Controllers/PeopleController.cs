@@ -70,7 +70,7 @@ namespace WebAppMVCbasics2app.Controllers
 
             if (_peopleService.Remove(id))
             {
-                return Ok("Person_" + id);
+                return Ok("person" + id);
             }
             //return RedirectToAction(nameof(Index));
             return BadRequest();

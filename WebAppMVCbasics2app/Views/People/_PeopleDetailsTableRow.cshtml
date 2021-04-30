@@ -1,21 +1,22 @@
 ﻿
 @model Person
 
+@* Breddade till col-6 för att snygga till details vyn.  *@
 
-<div id="@("person" + Model.Id)" class="col-3">
+<div id="@("person" + Model.Id)" class="col-12">
     <div class="col-3">
-        <p>Name!</p>
+        <p class="bold_text" >Name:</p>
         <p>@Model.Name</p>
     </div>
     <div class="col-3">
-        <p>Phone!</p>
+        <p class="bold_text" >Phone:</p>
         <p>@Model.Phone</p>
     </div>
     <div class="col-3">
-        <p>City!</p>
+        <p class="bold_text" >City:</p>
         <p>@Model.City</p>
     </div>
     <div class="col-3">
-        <a asp-action="endPeopleDetails" asp-route-id="@Model.Id" onclick="closeDetailsPerson(@Model.Id, event)">Close Details</a>
+        <a class="btn-primary" asp-action="endPeopleDetails" asp-route-id="@Model.Id" onclick="closeDetailsPerson(@Model.Id, event)">Close Details</a>
     </div>
 </div>

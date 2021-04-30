@@ -9,8 +9,6 @@ function closeDetailsPerson(id, event) {
     $.post(endDetailsUrl, { id: id },
         function (data, status) {
             console.log("Data: " + data + "\nStatus: " + status);
-
-            //TODO: fuck, den här funkar inte!
             $("#person" + id).replaceWith(data);
         }
     );

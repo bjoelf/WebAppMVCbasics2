@@ -1,7 +1,37 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
 
-// Write your JavaScript code.
+
+function closeDetailsPerson(id, event) {
+    event.preventDefault();
+
+    var endDetailsUrl = event.target.href;
+
+    $.post(endDetailsUrl, { id: id },
+        function (data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+
+            //TODO: fuck, den här funkar inte!
+            $("#person" + id).replaceWith(data);
+        }
+    );
+}
+
+function detailsPerson(id, event) {
+    event.preventDefault();
+
+    var detailsUrl = event.target.href;
+    $.post(detailsUrl, { id: id },
+
+        //Motsvarar i Contollern: 
+        //return PartialView("_PeopleDetailsTableRow", person);
+        function (data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+
+            //Det funkade men behöver snyggas till en smula...
+            $("#person" + id).replaceWith(data);
+        }
+    );
+}
 
 function deletePerson(element, event) {
     event.preventDefault();
@@ -14,17 +44,19 @@ function deletePerson(element, event) {
 
     var deleteUrl = event.target.href;
 
+    //här snackas det med controllern och variabeln data håller returvärdet från controllern!
+    //function är ett generiskt uttryck för metoden anropet skickas till!
     $.get(deleteUrl, function (data, status) {
-        //alert("Data: " + data + "\nStatus: " + status);
+        alert("Data: " + data + "\nStatus: " + status);
 
         //deleteUrl = "https://localhost:44386/People/Delete/3"
         console.log(deleteUrl);
 
-        //data = "Person_2"
+        //data = "person2" Det motsvarar id på det element som skall bort.
+        //Skumt att backend och frontend liksom jobbar parallellt.
         console.log(data);
 
-        //Funkar hit!
+        //Här blir strängen #person2 vilket är "css style" adressering av elementet
         $("#" + data).remove();
     })
-
 }

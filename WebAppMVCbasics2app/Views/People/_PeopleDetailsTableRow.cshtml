@@ -1,0 +1,21 @@
+﻿
+@model Person
+
+
+<div id="@("person" + Model.Id)" class="col-3">
+    <div class="col-3">
+        <p>Name!</p>
+        <p>@Model.Name</p>
+    </div>
+    <div class="col-3">
+        <p>Phone!</p>
+        <p>@Model.Phone</p>
+    </div>
+    <div class="col-3">
+        <p>City!</p>
+        <p>@Model.City</p>
+    </div>
+    <div class="col-3">
+        <a asp-action="endPeopleDetails" asp-route-id="@Model.Id" onclick="closeDetailsPerson(@Model.Id, event)">Close Details</a>
+    </div>
+</div>

@@ -34,8 +34,8 @@ namespace WebAppMVCbasics2app.Controllers
             return View(list);
         }
 
-        //Ny metod
-        public IActionResult Detailes(int id)
+        
+        public IActionResult Details(int id)
         {
             Person person = _peopleService.FindBy(id);
 
@@ -44,6 +44,24 @@ namespace WebAppMVCbasics2app.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(person);
+        }
+
+        //Ny metod för avslut av details      
+        public IActionResult endPeopleDetails(int id)
+        {
+            return PartialView("_PeopleTableRow",_peopleService.FindBy(id));
+        }
+
+        public IActionResult PartialDetailes(int id)
+        {
+            Person person = _peopleService.FindBy(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_PeopleDetailsTableRow", person);
         }
 
         public IActionResult Filter(PeopleViewModel filter)

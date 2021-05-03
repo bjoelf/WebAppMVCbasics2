@@ -9,13 +9,12 @@ namespace WebAppMVCbasics2app.Models
 {
     public class PeopleService :  IPeopleService 
     {
-        IPeopleRepo _peopleRepo = new InMemoryPeopleRepo();
+        IPeopleRepo _peopleRepo;
 
-        //public PeopleService()
-        //{
-        //    //Only need to alter this line of code in changeing data source 
-        //    //_peopleRepo = new InMemoryPeopleRepo();
-        //}
+        public PeopleService(IPeopleRepo peopleRepo)
+        {
+            _peopleRepo = peopleRepo;
+        }
 
         public Person Add(CreatePersonViewModel person)
         {

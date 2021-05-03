@@ -37,7 +37,6 @@ namespace WebAppMVCbasics2app.Models
 
         public PeopleViewModel FindBy(PeopleViewModel find)
         {
-
             PeopleViewModel pvm = new PeopleViewModel();
             pvm.PeopleList = _peopleRepo.Read().Where(x => x.Name.Contains(find.Search) || x.City.Contains(find.Search)).ToList();
             return pvm;

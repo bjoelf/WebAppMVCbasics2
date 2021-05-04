@@ -30,11 +30,14 @@ namespace WebAppMVCbasics2app.Database
         public bool Delete(Person person)
         {
             peopleDbContext.Remove(person);
-            if (this.Read(person.Id) == null)
+            int change = peopleDbContext.SaveChanges();
+
+            //if (Read(person.Id) == null)
+            if (change == 0) 
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         public List<Person> Read()

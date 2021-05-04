@@ -22,7 +22,7 @@ namespace WebAppMVCbasics2app.Database
 
             if (change == 0) // no change in db.
             {
-                throw new Exception("Unable to att car to database");
+                throw new Exception("Unable to add person to database");
             }
             return person;
         }

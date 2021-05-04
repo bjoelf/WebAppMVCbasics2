@@ -36,9 +36,9 @@ namespace WebAppMVCbasics2app
             //Service:
             services.AddScoped<IPeopleService, PeopleService>();
             //Repo:
-            services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>();
+            //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //Knepigt om båda är med :P
             //Assignment 5, ändra till scooped.
-            services.AddScoped<IPeopleRepo, InMemoryPeopleRepo>();
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
 
             services.AddMvc();
         }

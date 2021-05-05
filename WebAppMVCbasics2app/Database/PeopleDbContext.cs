@@ -14,7 +14,7 @@ namespace WebAppMVCbasics2app.Database
 
         //Easy to forget to set to public!
         public DbSet<Person> People { get; set; }
-
-        //One DBSet for each type/object that go into the db??
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
     }
 }

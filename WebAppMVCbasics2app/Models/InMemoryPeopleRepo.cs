@@ -40,13 +40,11 @@ namespace WebAppMVCbasics2app.Models
 
         public Person Update(Person person)
         {
-            //TODO: testa om denna funkar!
             PersonList[person.Id] = person;
             return PersonList[person.Id];
         }
         public bool Delete(Person person)
         {
-            //TODO: testa även denna!
             PersonList.Remove(person);
             Person person1 = Read(person.Id);
             if (person1 == null)

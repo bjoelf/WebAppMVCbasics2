@@ -28,17 +28,19 @@ namespace WebAppMVCbasics2app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Ändringar för Assignment 5:
+            //******************************** Database connection ***********************************
+            //Connection to database (local). Connectionstring in appsettings.json
             services.AddDbContext<PeopleDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //****************************************************************************************
 
-            //Ändringar för Assignment 4:
-            //Service:
+            //**************************** Service IOC ***********************************************
             services.AddScoped<IPeopleService, PeopleService>();
-            //Repo:
-            //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //Knepigt om båda är med :P
-            //Assignment 5, ändra till scooped.
+
+            //**************************** Repo: *****************************************************
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
+
+            //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //Knepigt om båda är med :P
 
             services.AddMvc();
         }

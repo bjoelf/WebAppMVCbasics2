@@ -27,19 +27,6 @@ namespace WebAppMVCbasics2app.Database
             return person;
         }
 
-        public bool Delete(Person person)
-        {
-            peopleDbContext.Remove(person);
-            int change = peopleDbContext.SaveChanges();
-
-            //if (Read(person.Id) == null)
-            if (change == 0) 
-            {
-                return false;
-            }
-            return true;
-        }
-
         public List<Person> Read()
         {
             return peopleDbContext.People.ToList();
@@ -52,7 +39,33 @@ namespace WebAppMVCbasics2app.Database
 
         public Person Update(Person person)
         {
-            throw new NotImplementedException();
+            Person p = Read(person.Id);
+            if (p == null) 
+                return null;
+            
+            peopleDbContext.Update(person);
+            int res = peopleDbContext.SaveChanges();
+            
+            if (res == 0) 
+                return null;
+            
+            return person;
+        }
+
+        public bool Delete(Person person)
+        {
+            Person p = Read(person.Id);
+
+            if (p == null)
+                return false;
+
+            peopleDbContext.Remove(person);
+            int result = peopleDbContext.SaveChanges();
+
+            if (result == 0) 
+                return false;
+
+            return true;
         }
     }
 }

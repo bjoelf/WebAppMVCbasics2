@@ -9,21 +9,27 @@ namespace WebAppMVCbasics2app.Database
 {
     public class DbCountryRepo : ICountryRepo
     {
+        private readonly PeopleDbContext _peopleDbContext;
+
+        public DbCountryRepo(PeopleDbContext peopleDbContext)
+        {
+            _peopleDbContext = peopleDbContext;
+        }
         public Country Create(Country country)
         {
-            throw new NotImplementedException();
-        }
+            _peopleDbContext.Add(country);
 
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
+            int ret = _peopleDbContext.SaveChanges();
 
+            if (ret == 0)
+                return null;
+
+            return country;
+        }
         public Country Read(int id)
         {
-            throw new NotImplementedException();
+            return _peopleDbContext.Countries.Find(id);
         }
-
         public List<Country> Read()
         {
             throw new NotImplementedException();
@@ -31,7 +37,32 @@ namespace WebAppMVCbasics2app.Database
 
         public Country Update(Country country)
         {
-            throw new NotImplementedException();
+            Country c = Read(country.Id);
+            if (c == null)
+                return null;
+
+            _peopleDbContext.Update(country);
+            int res = _peopleDbContext.SaveChanges();
+
+            if (res == 0)
+                return null;
+
+            return c;
+        }
+        public bool Delete(int id)
+        {
+            Country c = Read(id);
+
+            if (c == null)
+                return false;
+
+            _peopleDbContext.Countries.Remove(c);
+            int res = _peopleDbContext.SaveChanges();
+
+            if (res == 0)
+                return false;
+
+            return true;
         }
     }
 }

@@ -9,24 +9,62 @@ namespace WebAppMVCbasics2app.Database
 {
     public class DbCityRepo : ICityRepo
     {
+        private readonly PeopleDbContext _peopleDbContext;
+
+        public DbCityRepo(PeopleDbContext peopleDbContext)
+        {
+            _peopleDbContext = peopleDbContext;
+        }
         public City Create(City city)
         {
-            throw new NotImplementedException();
-        }
+            _peopleDbContext.Add(city);
 
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
+            int ret = _peopleDbContext.SaveChanges();
 
+            if (ret == 0)
+                return null;
+
+            return city;
+        }
         public City Read(int id)
         {
-            throw new NotImplementedException();
+            return _peopleDbContext.Cities.Find(id);
         }
-
         public List<City> Read()
         {
             throw new NotImplementedException();
         }
-    }
+
+        public City Update(City city)
+        {
+            City c = Read(city.Id);
+
+            if (c == null)
+                return null;
+
+            _peopleDbContext.Update(city);
+            int res = _peopleDbContext.SaveChanges();
+
+            if (res == 0)
+                return null;
+
+            return c;
+        }
+
+        public bool Delete(int id)
+        {
+            City c = Read(id);
+
+            if (c == null)
+                return false;
+
+            _peopleDbContext.Cities.Remove(c);
+            int res = _peopleDbContext.SaveChanges();
+
+            if (res == 0)
+                return false;
+ 
+            return true;
+        }
+   }
 }

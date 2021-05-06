@@ -21,5 +21,8 @@ namespace WebAppMVCbasics2app.Models
 
         [ForeignKey("PersonInCity")]
         public int PersonInCityId { get; set; }
+
+        [Required]
+        public Country country { get; set; }
     }
 }

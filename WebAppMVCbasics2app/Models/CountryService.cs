@@ -19,27 +19,37 @@ namespace WebAppMVCbasics2app.Models
         }
         public Country Add(CreateCountry createCountry)
         {
-            throw new NotImplementedException();
+            Country country = new Country();
+            country.CountryName = createCountry.CountryName;
+
+            return _countryRepo.Create(country);
         }
 
         public List<Country> All()
         {
-            throw new NotImplementedException();
+            return _countryRepo.Read();
+        }
+        public Country FindById(int id)
+        {
+            return _countryRepo.Read(id);
         }
 
         public Country Edit(int id, CreateCountry country)
         {
-            throw new NotImplementedException();
-        }
+            Country c = FindById(id);
+            if (c == null)
+                return null;
 
-        public Country FindById(int id)
-        {
-            throw new NotImplementedException();
+            c.CountryName = country.CountryName;
+
+            c = _countryRepo.Update(c);
+
+            return c;
         }
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            return _countryRepo.Delete(id);
         }
     }
 }

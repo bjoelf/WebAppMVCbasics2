@@ -14,6 +14,8 @@ namespace WebAppMVCbasics2app.Interfaces
 
         List<City> Read();
 
+        City Update(City city);
+
         bool Delete(int id);
     }
 }

@@ -12,6 +12,10 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         [StringLength(30, MinimumLength = 5)]
         public string CountryName { get; set; }
 
+        //TODO: Lägg till foreign key i CreateCcountry
+        [Required]
+        public int CountryId { get; set; }
+
         public List<Country> CountryList { get; set; }
     }
 }

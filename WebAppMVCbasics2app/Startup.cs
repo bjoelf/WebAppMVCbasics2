@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Database;
 using WebAppMVCbasics2app.Models;
+using WebAppMVCbasics2app.Interfaces;
 
 namespace WebAppMVCbasics2app
 {
@@ -36,11 +37,13 @@ namespace WebAppMVCbasics2app
 
             //**************************** Service IOC ***********************************************
             services.AddScoped<IPeopleService, PeopleService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICountryService, CountryService>();
 
             //**************************** Repo: *****************************************************
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
-
-            //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //Knepigt om båda är med :P
+            services.AddScoped<ICityRepo, DbCityRepo>();
+            services.AddScoped<ICountryRepo, DbCountryRepo>();
 
             services.AddMvc();
         }

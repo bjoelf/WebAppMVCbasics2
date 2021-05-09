@@ -58,3 +58,4 @@ function deletePerson(element, event) {
         $("#" + data).remove();
     })
 }
+

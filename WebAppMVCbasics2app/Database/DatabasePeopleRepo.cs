@@ -8,17 +8,17 @@ namespace WebAppMVCbasics2app.Database
 {
     public class DatabasePeopleRepo : IPeopleRepo
     {
-        private readonly PeopleDbContext peopleDbContext;
+        private readonly PeopleDbContext _peopleDbContext;
 
         public DatabasePeopleRepo(PeopleDbContext peopleDbContext)
         {
-            this.peopleDbContext = peopleDbContext;
+            this._peopleDbContext = peopleDbContext;
         }
 
         public Person Create(Person person)
         {
-            peopleDbContext.Add(person);
-            int change = peopleDbContext.SaveChanges();
+            _peopleDbContext.Add(person);
+            int change = _peopleDbContext.SaveChanges();
 
             if (change == 0) // no change in db.
             {
@@ -29,12 +29,12 @@ namespace WebAppMVCbasics2app.Database
 
         public List<Person> Read()
         {
-            return peopleDbContext.People.ToList();
+            return _peopleDbContext.People.ToList();
         }
 
         public Person Read(int id)
         {
-            return peopleDbContext.People.SingleOrDefault(row => row.Id == id);
+            return _peopleDbContext.People.SingleOrDefault(row => row.Id == id);
         }
 
         public Person Update(Person person)
@@ -43,8 +43,8 @@ namespace WebAppMVCbasics2app.Database
             if (p == null) 
                 return null;
             
-            peopleDbContext.Update(person);
-            int res = peopleDbContext.SaveChanges();
+            _peopleDbContext.Update(person);
+            int res = _peopleDbContext.SaveChanges();
             
             if (res == 0) 
                 return null;
@@ -59,8 +59,8 @@ namespace WebAppMVCbasics2app.Database
             if (p == null)
                 return false;
 
-            peopleDbContext.Remove(person);
-            int result = peopleDbContext.SaveChanges();
+            _peopleDbContext.Remove(person);
+            int result = _peopleDbContext.SaveChanges();
 
             if (result == 0) 
                 return false;

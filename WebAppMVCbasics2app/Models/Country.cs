@@ -16,7 +16,6 @@ namespace WebAppMVCbasics2app.Models
         [MaxLength(30)]
         public string CountryName { get; set; }
 
-        [Required]
         public City CityInCountry { get; set; }
 
         [ForeignKey("CityInCountry")]

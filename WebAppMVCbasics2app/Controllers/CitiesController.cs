@@ -8,24 +8,24 @@ using WebAppMVCbasics2app.Interfaces;
 
 namespace WebAppMVCbasics2app.Controllers
 {
-    public class CityController : Controller
+    public class CitiesController : Controller
     {
         private readonly ICityService _cityService;
-        public CityController(ICityService cityService)
+        public CitiesController(ICityService cityService)
         {
             this._cityService = cityService;
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_cityService.All());
         }
-
-        //Get anrop för att hämta sidan/viewn
-        public ActionResult Create()
+        public IActionResult Index(CreateCity createCity)
         {
-            CreateCity createCity = new CreateCity();
-            createCity.CityList = _cityService.All();
-            return View(createCity);
+            if (ModelState.IsValid)
+            {
+                _cityService.Add(createCity);
+            }
+            return View(_cityService.All());
         }
 
         [HttpPost]

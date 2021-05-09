@@ -25,14 +25,16 @@ namespace WebAppMVCbasics2app.Models
             city.CityName = createCity.CityName;
 
             //TODO: Lägg till här att adda landet om det inte finns i repon?
-            city.country = _countryRepo.Read(createCity.CountryId);
+            city.Country = _countryRepo.Read(createCity.CountryId);
 
             return _cityRepo.Create(city);
         }
 
-        public List<City> All()
+        public CityViewModel All()
         {
-            return _cityRepo.Read();
+            CityViewModel vm = new CityViewModel();
+            vm.CityList = _cityRepo.Read();
+            return vm;
         }
 
         public City FindById(int id)

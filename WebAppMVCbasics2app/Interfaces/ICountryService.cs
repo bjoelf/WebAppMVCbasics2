@@ -10,7 +10,7 @@ namespace WebAppMVCbasics2app.Interfaces
     public interface ICountryService
     {
         Country Add(CreateCountry createCountry);
-        List<Country> All();
+        CountryViewModel All();
         Country FindById(int id);
         Country Edit(int id, CreateCountry country);
         bool Remove(int id);

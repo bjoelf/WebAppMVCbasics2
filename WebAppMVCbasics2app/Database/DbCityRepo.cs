@@ -32,9 +32,8 @@ namespace WebAppMVCbasics2app.Database
         }
         public List<City> Read()
         {
-            throw new NotImplementedException();
+            return _peopleDbContext.Cities.ToList();
         }
-
         public City Update(City city)
         {
             City c = Read(city.Id);
@@ -50,7 +49,6 @@ namespace WebAppMVCbasics2app.Database
 
             return c;
         }
-
         public bool Delete(int id)
         {
             City c = Read(id);

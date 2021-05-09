@@ -10,7 +10,7 @@ namespace WebAppMVCbasics2app.Interfaces
     public interface ICityService
     {
         City Add(CreateCity createCity);
-        List<City> All();
+        CityViewModel All();
         City FindById(int id);
         City Edit(int id, CreateCity city);
         bool Remove(int id);

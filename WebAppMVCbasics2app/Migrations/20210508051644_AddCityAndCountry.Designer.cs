@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppMVCbasics2app.Database;
 
 namespace WebAppMVCbasics2app.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    partial class PeopleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210508051644_AddCityAndCountry")]
+    partial class AddCityAndCountry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +104,7 @@ namespace WebAppMVCbasics2app.Migrations
             modelBuilder.Entity("WebAppMVCbasics2app.Models.Country", b =>
                 {
                     b.HasOne("WebAppMVCbasics2app.Models.City", "CityInCountry")
-                        .WithOne("Country")
+                        .WithOne("country")
                         .HasForeignKey("WebAppMVCbasics2app.Models.Country", "CityInCountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -112,7 +114,8 @@ namespace WebAppMVCbasics2app.Migrations
 
             modelBuilder.Entity("WebAppMVCbasics2app.Models.City", b =>
                 {
-                    b.Navigation("Country");
+                    b.Navigation("country")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

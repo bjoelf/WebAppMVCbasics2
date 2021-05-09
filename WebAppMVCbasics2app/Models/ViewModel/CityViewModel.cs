@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebAppMVCbasics2app.Models.ViewModel
 {
-    public class CreateCountry
+    public class CityViewModel
     {
         [Required]
-        [StringLength(30, MinimumLength = 5)]
-        public string CountryName { get; set; }
+        public string CityName { get; set; }
+        public List<City> CityList { get; set; }
     }
 }

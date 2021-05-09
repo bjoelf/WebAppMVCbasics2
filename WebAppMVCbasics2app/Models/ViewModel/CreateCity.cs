@@ -10,13 +10,8 @@ namespace WebAppMVCbasics2app.Models.ViewModel
     {
         [Required]
         [StringLength(60, MinimumLength = 5)]
-
         public string CityName { get; set; }
 
-        //TODO: Lägg till foreign key i CreateCity
-        [Required]
         public int CountryId { get; set; }
-
-        public List<City> CityList { get; set; }
     }
 }

@@ -32,7 +32,9 @@ namespace WebAppMVCbasics2app.Database
         }
         public List<Country> Read()
         {
-            throw new NotImplementedException();
+            //TODO: Felsök, det smäller här
+            //TODO: Kolla hur det görs i PeopleRepo!
+            return _peopleDbContext.Countries.ToList();
         }
 
         public Country Update(Country country)

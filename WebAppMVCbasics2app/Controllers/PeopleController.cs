@@ -39,8 +39,7 @@ namespace WebAppMVCbasics2app.Controllers
         {
             return View(list);
         }
-
-        
+                
         public IActionResult Details(int id)
         {
             Person person = _peopleService.FindBy(id);
@@ -76,12 +75,6 @@ namespace WebAppMVCbasics2app.Controllers
             PeopleViewModel pvm = _peopleService.FindBy(filter);
             return View("Index", pvm);
         }
-               
-        //public IActionResult Delete(int id)
-        //{
-        //    _peopleService.Remove(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
 
         public IActionResult Delete(int id)
         {

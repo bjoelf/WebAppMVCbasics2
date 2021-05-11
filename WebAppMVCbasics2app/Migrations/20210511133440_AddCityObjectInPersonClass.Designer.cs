@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppMVCbasics2app.Database;
 
 namespace WebAppMVCbasics2app.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    partial class PeopleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210511133440_AddCityObjectInPersonClass")]
+    partial class AddCityObjectInPersonClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,11 @@ namespace WebAppMVCbasics2app.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CityId")
+                    b.Property<string>("City")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int?>("LiveInCityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -79,7 +85,7 @@ namespace WebAppMVCbasics2app.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("LiveInCityId");
 
                     b.ToTable("People");
                 });
@@ -97,7 +103,7 @@ namespace WebAppMVCbasics2app.Migrations
                 {
                     b.HasOne("WebAppMVCbasics2app.Models.City", "LiveInCity")
                         .WithMany("PersonInCity")
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("LiveInCityId");
 
                     b.Navigation("LiveInCity");
                 });

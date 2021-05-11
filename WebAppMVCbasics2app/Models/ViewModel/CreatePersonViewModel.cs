@@ -15,7 +15,8 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         public string Name { get; set; }
         [Required]
         public string Phone { get; set; }
-        [Required]
-        public string City { get; set; }
+         
+        public List<City> LiveInCity { get; set; }
+        public int CityId { get; set; }
     }
 }

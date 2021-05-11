@@ -13,23 +13,34 @@
 <br />
 
 <form class="text-center" asp-action="Index" asp-controller="People" method="post">
-    <label asp-for="Name"></label>
-    <input asp-for="Name" />
-    <span asp-validation-for="Name"></span>
+    <label asp-for="CreatePersonViewModel.Name"></label>
+    <input asp-for="CreatePersonViewModel.Name" />
+    <span asp-validation-for="CreatePersonViewModel.Name"></span>
 
-    <label asp-for="Phone"></label>
-    <input asp-for="Phone" />
-    <span asp-validation-for="Phone"></span>
+    <label asp-for="CreatePersonViewModel.Phone"></label>
+    <input asp-for="CreatePersonViewModel.Phone" />
+    <span asp-validation-for="CreatePersonViewModel.Phone"></span>
 
-    <label asp-for="City"></label>
-    <input asp-for="City" />
-    <span asp-validation-for="City"></span>
+
+    <label asp-for="CreatePersonViewModel.CityId"></label>
+    <select asp-for="CreatePersonViewModel.CityId">
+
+        <option value="">No City</option>
+
+        @foreach (var item in Model.CreatePersonViewModel.LiveInCity)
+        {
+            <option value="@item.Id">@item.CityName</option>
+        }
+
+    </select>
+    <span asp-validation-for="CreatePersonViewModel.LiveInCity"></span>
+
+
+
     <button>Add</button>
 </form>
 
-
 <hr />
-
 
 <form asp-action="Filter" asp-controller="People">
     <label asp-for="Search"></label>

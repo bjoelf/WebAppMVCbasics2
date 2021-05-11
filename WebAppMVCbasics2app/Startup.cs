@@ -39,11 +39,14 @@ namespace WebAppMVCbasics2app
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+
 
             //**************************** Repo: *****************************************************
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
             services.AddScoped<ICityRepo, DbCityRepo>();
             services.AddScoped<ICountryRepo, DbCountryRepo>();
+            services.AddScoped<ILanguageRepo, DbLanguageRepo>();
 
             services.AddMvc();
         }

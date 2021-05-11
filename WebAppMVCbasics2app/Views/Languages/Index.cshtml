@@ -1,0 +1,24 @@
+﻿@model List<Language>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Languages start here!</h1>
+
+<a asp-action="Create">Create Language</a>
+<table>
+    <thead>
+        <tr>
+            <th>Language</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

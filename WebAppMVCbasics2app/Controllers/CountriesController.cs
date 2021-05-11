@@ -37,12 +37,6 @@ namespace WebAppMVCbasics2app.Controllers
 
         public ActionResult Create()
         {
-            //Listan visas i index, inte create!
-
-            //CreateCountry createCountry = new CreateCountry();
-            //createCountry.CountryList = _countryService.All();
-            //return View(createCountry);
-
             return View();
         }
 

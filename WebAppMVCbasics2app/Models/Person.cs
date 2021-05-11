@@ -10,17 +10,14 @@ namespace WebAppMVCbasics2app.Models
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         [MaxLength(59)]
         public string Name { get; set; }
-
         [MaxLength(20)]
         public string Phone { get; set; }
-
         [MaxLength(30)]
         public string City { get; set; }
-
         public City LiveInCity { get; set; }
+        public List<PersonLanguage> PersonLanguage { get; set; }
     }
 }

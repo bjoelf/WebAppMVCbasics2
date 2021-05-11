@@ -20,5 +20,7 @@ namespace WebAppMVCbasics2app.Models
 
         [MaxLength(30)]
         public string City { get; set; }
+
+        public City LiveInCity { get; set; }
     }
 }

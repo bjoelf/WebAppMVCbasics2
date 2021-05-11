@@ -20,8 +20,6 @@ namespace WebAppMVCbasics2app.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //TODO: Här skall det vara CountryViewModel.
-            // Inte Country
             return View(_countryService.All());
         }
 
@@ -37,12 +35,16 @@ namespace WebAppMVCbasics2app.Controllers
         }
 
 
-        //public ActionResult Create()
-        //{
-        //    CreateCountry createCountry = new CreateCountry();
-        //    createCountry.CountryList = _countryService.All();
-        //    return View(createCountry);
-        //}
+        public ActionResult Create()
+        {
+            //Listan visas i index, inte create!
+
+            //CreateCountry createCountry = new CreateCountry();
+            //createCountry.CountryList = _countryService.All();
+            //return View(createCountry);
+
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

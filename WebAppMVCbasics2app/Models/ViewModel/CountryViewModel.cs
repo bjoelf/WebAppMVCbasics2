@@ -8,8 +8,8 @@ namespace WebAppMVCbasics2app.Models.ViewModel
 {
     public class CountryViewModel
     {
-        [Required]
-        public string CountryName { get; set; }
-        public List<City> CountryList { get; set; }
+        //[Required]
+        //public string CountryName { get; set; }
+        public List<Country> CountryList { get; set; }
     }
 }

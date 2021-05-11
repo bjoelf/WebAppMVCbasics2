@@ -23,8 +23,6 @@ namespace WebAppMVCbasics2app.Models
         {
             City city = new City();
             city.CityName = createCity.CityName;
-
-            //TODO: Lägg till här att adda landet om det inte finns i repon?
             city.Country = _countryRepo.Read(createCity.CountryId);
 
             return _cityRepo.Create(city);
@@ -41,6 +39,7 @@ namespace WebAppMVCbasics2app.Models
         {
             return _cityRepo.Read(id);
         }
+
         public City Edit(int id, CreateCity city)
         {
             City c = FindById(id);

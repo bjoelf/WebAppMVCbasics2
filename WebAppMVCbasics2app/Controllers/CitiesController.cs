@@ -5,27 +5,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models.ViewModel;
 using WebAppMVCbasics2app.Interfaces;
+using WebAppMVCbasics2app.Models;
 
 namespace WebAppMVCbasics2app.Controllers
 {
     public class CitiesController : Controller
     {
         private readonly ICityService _cityService;
-        public CitiesController(ICityService cityService)
+        private readonly ICountryService _countryService;
+        public CitiesController(ICityService cityService, ICountryService countryService)
         {
-            this._cityService = cityService;
+            _cityService = cityService;
+            _countryService = countryService;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
+            //Ändra ICityService och CityService och sen här!
             return View(_cityService.All());
+
         }
-        public IActionResult Index(CreateCity createCity)
+
+        public IActionResult Create()
         {
-            if (ModelState.IsValid)
-            {
-                _cityService.Add(createCity);
-            }
-            return View(_cityService.All());
+            //TODO: Kolla om denna konverterng funkar. 
+            CreateCity createCity = new CreateCity();
+            createCity.Countries = _countryService.All().CountryList;
+            return View(createCity);
         }
 
         [HttpPost]
@@ -37,6 +44,7 @@ namespace WebAppMVCbasics2app.Controllers
                 _cityService.Add(createCity);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(createCity);
         }
     }

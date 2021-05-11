@@ -16,10 +16,7 @@ namespace WebAppMVCbasics2app.Models
         [MaxLength(30)]
         public string CityName { get; set; }
 
-        public Person PersonInCity { get; set; }
-
-        [ForeignKey("PersonInCity")]
-        public int PersonInCityId { get; set; }
+        public List<Person> PersonInCity { get; set; }
 
         public Country Country { get; set; }
     }

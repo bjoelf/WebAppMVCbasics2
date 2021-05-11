@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Interfaces;
 using WebAppMVCbasics2app.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAppMVCbasics2app.Database
 {
@@ -32,7 +33,7 @@ namespace WebAppMVCbasics2app.Database
         }
         public List<City> Read()
         {
-            return _peopleDbContext.Cities.ToList();
+            return _peopleDbContext.Cities.Include(city => city.Country).ToList();
         }
         public City Update(City city)
         {

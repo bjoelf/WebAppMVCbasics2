@@ -13,5 +13,7 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         public string CityName { get; set; }
 
         public int CountryId { get; set; }
+
+        public List<Country> Countries { get; set; }
     }
 }

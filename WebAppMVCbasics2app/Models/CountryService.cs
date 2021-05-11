@@ -27,11 +27,17 @@ namespace WebAppMVCbasics2app.Models
 
         public CountryViewModel All()
         {
-            //TODO: Här ska CountryviewModel returernas, inte Country.
             CountryViewModel cvm = new CountryViewModel();
-            cvm.CountryList = _cityRepo.Read();
+            cvm.CountryList = _countryRepo.Read();
             return cvm;
         }
+
+        //public List<Country> All()
+        //{
+        //    //Ny metod som returnerar lista
+        //    return _countryRepo.Read();
+        //}
+
         public Country FindById(int id)
         {
             return _countryRepo.Read(id);

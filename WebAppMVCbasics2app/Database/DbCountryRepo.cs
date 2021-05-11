@@ -32,8 +32,6 @@ namespace WebAppMVCbasics2app.Database
         }
         public List<Country> Read()
         {
-            //TODO: Felsök, det smäller här
-            //TODO: Kolla hur det görs i PeopleRepo!
             return _peopleDbContext.Countries.ToList();
         }
 

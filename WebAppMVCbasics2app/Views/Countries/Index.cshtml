@@ -5,3 +5,24 @@
 
 
 <h1>Country management</h1>
+
+
+<a asp-action="Create">Create Country</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>City </th>
+            <th>Country</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ctry in Model.CountryList)
+        {
+            <tr>
+                @*<td>@ctry.Country.CountryName </td>*@
+                <td>@ctry.CountryName</td>
+            </tr>
+        }
+    </tbody>
+</table>

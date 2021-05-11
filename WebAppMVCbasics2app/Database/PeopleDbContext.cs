@@ -17,4 +17,14 @@ namespace WebAppMVCbasics2app.Database
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
     }
+
+    ///Kommandon i PM:
+    /// REBUILD
+    /// dotnet ef migrations add COMMENT
+    /// REBUILD
+    /// dotnet ef database update
+    /// DONE!
+
 }
+
+

@@ -15,7 +15,6 @@ namespace WebAppMVCbasics2app.Controllers
 
         public PeopleController(IPeopleService peopleService)
         {
-            //Constructor injection
             _peopleService = peopleService;
         }
 
@@ -46,9 +45,8 @@ namespace WebAppMVCbasics2app.Controllers
             Person person = _peopleService.FindBy(id);
 
             if (person == null)
-            {
                 return RedirectToAction(nameof(Index));
-            }
+
             return View(person);
         }
 
@@ -63,40 +61,27 @@ namespace WebAppMVCbasics2app.Controllers
             Person person = _peopleService.FindBy(id);
 
             if (person == null)
-            {
                 return NotFound();
-            }
 
             return PartialView("_PeopleDetailsTableRow", person);
         }
 
         public IActionResult Filter(PeopleViewModel filter)
         {
-            //Skapa NY lista och skicka den!
             PeopleViewModel pvm = _peopleService.FindBy(filter);
             return View("Index", pvm);
         }
                
-        //public IActionResult Delete(int id)
-        //{
-        //    _peopleService.Remove(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         public IActionResult Delete(int id)
         {
             Person person = _peopleService.FindBy(id);
 
             if (person == null)
-            {
                 return NotFound();
-            }
 
             if (_peopleService.Remove(id))
-            {
                 return Ok("person" + id);
-            }
-            //return RedirectToAction(nameof(Index));
+
             return BadRequest();
         }
     }

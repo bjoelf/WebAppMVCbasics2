@@ -10,8 +10,8 @@ using WebAppMVCbasics2app.Database;
 namespace WebAppMVCbasics2app.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20210511160631_AddedLanguage")]
-    partial class AddedLanguage
+    [Migration("20210512130048_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,11 +84,7 @@ namespace WebAppMVCbasics2app.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int?>("LiveInCityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -102,7 +98,7 @@ namespace WebAppMVCbasics2app.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LiveInCityId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("People");
                 });
@@ -135,7 +131,7 @@ namespace WebAppMVCbasics2app.Migrations
                 {
                     b.HasOne("WebAppMVCbasics2app.Models.City", "LiveInCity")
                         .WithMany("PersonInCity")
-                        .HasForeignKey("LiveInCityId");
+                        .HasForeignKey("CityId");
 
                     b.Navigation("LiveInCity");
                 });

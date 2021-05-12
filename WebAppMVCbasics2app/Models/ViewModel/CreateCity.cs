@@ -9,7 +9,7 @@ namespace WebAppMVCbasics2app.Models.ViewModel
     public class CreateCity
     {
         [Required]
-        [StringLength(60, MinimumLength = 5)]
+        [StringLength(30, MinimumLength = 2)]
         public string CityName { get; set; }
 
         public int CountryId { get; set; }

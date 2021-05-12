@@ -10,12 +10,12 @@ namespace WebAppMVCbasics2app.Models.ViewModel
     {
         //CreatePersonViewModel – Use to prevent overposting and to use data
         //annotations to validate inputs when creating new person
-         
+
         [Required]
         public string Name { get; set; }
         [Required]
         public string Phone { get; set; }
-        [Required]
-        public string City { get; set; }
+        public List<City> LiveInCity { get; set; }
+        public int CityId { get; set; }
     }
 }

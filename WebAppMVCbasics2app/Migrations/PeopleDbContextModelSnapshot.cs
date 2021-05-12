@@ -82,11 +82,7 @@ namespace WebAppMVCbasics2app.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int?>("LiveInCityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -100,7 +96,7 @@ namespace WebAppMVCbasics2app.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LiveInCityId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("People");
                 });
@@ -133,7 +129,7 @@ namespace WebAppMVCbasics2app.Migrations
                 {
                     b.HasOne("WebAppMVCbasics2app.Models.City", "LiveInCity")
                         .WithMany("PersonInCity")
-                        .HasForeignKey("LiveInCityId");
+                        .HasForeignKey("CityId");
 
                     b.Navigation("LiveInCity");
                 });

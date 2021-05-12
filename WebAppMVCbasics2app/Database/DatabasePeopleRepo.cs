@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace WebAppMVCbasics2app.Database
 {
@@ -29,7 +31,8 @@ namespace WebAppMVCbasics2app.Database
 
         public List<Person> Read()
         {
-            return _peopleDbContext.People.ToList();
+            //TODO: här smäller det när People sidan öppnas.
+            return _peopleDbContext.People.Include("LiveInCity").ToList();
         }
 
         public Person Read(int id)

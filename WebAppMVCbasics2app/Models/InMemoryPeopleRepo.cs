@@ -12,13 +12,13 @@ namespace WebAppMVCbasics2app.Models
 
         public InMemoryPeopleRepo()
         {
-            if (PersonList.Count == 0)
-            {
-                Create(new Person() { Name = "Björn Elfvin", Phone = "+46706952593", City = "Hovmantorp" });
-                Create(new Person() { Name = "Lilleman", Phone = "+4670123456", City = "Hovmantorp" });
-                Create(new Person() { Name = "Anders Andersson", Phone = "+4670654321", City = "Tingsryd" });
-                Create(new Person() { Name = "Johan Johansson", Phone = "+4670987654", City = "Växjö" });
-            }
+            //if (PersonList.Count == 0)
+            //{
+            //    Create(new Person() { Name = "Björn Elfvin", Phone = "+46706952593", City = "Hovmantorp" });
+            //    Create(new Person() { Name = "Lilleman", Phone = "+4670123456", City = "Hovmantorp" });
+            //    Create(new Person() { Name = "Anders Andersson", Phone = "+4670654321", City = "Tingsryd" });
+            //    Create(new Person() { Name = "Johan Johansson", Phone = "+4670987654", City = "Växjö" });
+            //}
         }
         public Person Create(Person person)
         {

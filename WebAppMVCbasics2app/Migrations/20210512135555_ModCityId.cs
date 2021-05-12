@@ -2,7 +2,7 @@
 
 namespace WebAppMVCbasics2app.Migrations
 {
-    public partial class Final_Sunday : Migration
+    public partial class ModCityId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

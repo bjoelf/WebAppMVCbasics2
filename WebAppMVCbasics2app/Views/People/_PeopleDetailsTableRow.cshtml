@@ -14,7 +14,7 @@
     </div>
     <div class="col-3">
         <p class="bold_text" >City:</p>
-        <p>@Model.City</p>
+        <p>@Model.LiveInCity.CityName</p>
     </div>
     <div class="col-3">
         <a class="btn-primary" asp-action="endPeopleDetails" asp-route-id="@Model.Id" onclick="closeDetailsPerson(@Model.Id, event)">Close Details</a>

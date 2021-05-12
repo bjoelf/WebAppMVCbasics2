@@ -10,8 +10,8 @@ using WebAppMVCbasics2app.Database;
 namespace WebAppMVCbasics2app.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20210511095756_RemovedForeignKeys")]
-    partial class RemovedForeignKeys
+    [Migration("20210512135555_ModCityId")]
+    partial class ModCityId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,16 +60,29 @@ namespace WebAppMVCbasics2app.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("WebAppMVCbasics2app.Models.Person", b =>
+            modelBuilder.Entity("WebAppMVCbasics2app.Models.Language", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("WebAppMVCbasics2app.Models.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
@@ -90,6 +103,21 @@ namespace WebAppMVCbasics2app.Migrations
                     b.ToTable("People");
                 });
 
+            modelBuilder.Entity("WebAppMVCbasics2app.Models.PersonLanguage", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonId", "LanguageId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("PersonLanguages");
+                });
+
             modelBuilder.Entity("WebAppMVCbasics2app.Models.City", b =>
                 {
                     b.HasOne("WebAppMVCbasics2app.Models.Country", "Country")
@@ -101,9 +129,30 @@ namespace WebAppMVCbasics2app.Migrations
 
             modelBuilder.Entity("WebAppMVCbasics2app.Models.Person", b =>
                 {
-                    b.HasOne("WebAppMVCbasics2app.Models.City", null)
+                    b.HasOne("WebAppMVCbasics2app.Models.City", "LiveInCity")
                         .WithMany("PersonInCity")
                         .HasForeignKey("CityId");
+
+                    b.Navigation("LiveInCity");
+                });
+
+            modelBuilder.Entity("WebAppMVCbasics2app.Models.PersonLanguage", b =>
+                {
+                    b.HasOne("WebAppMVCbasics2app.Models.Language", "Language")
+                        .WithMany("PersonLanguage")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAppMVCbasics2app.Models.Person", "Person")
+                        .WithMany("PersonLanguage")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("WebAppMVCbasics2app.Models.City", b =>
@@ -114,6 +163,16 @@ namespace WebAppMVCbasics2app.Migrations
             modelBuilder.Entity("WebAppMVCbasics2app.Models.Country", b =>
                 {
                     b.Navigation("CityInCountry");
+                });
+
+            modelBuilder.Entity("WebAppMVCbasics2app.Models.Language", b =>
+                {
+                    b.Navigation("PersonLanguage");
+                });
+
+            modelBuilder.Entity("WebAppMVCbasics2app.Models.Person", b =>
+                {
+                    b.Navigation("PersonLanguage");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,7 +24,6 @@ namespace WebAppMVCbasics2app.Controllers
         {
             //Ändra ICityService och CityService och sen här!
             return View(_cityService.All());
-
         }
 
         public IActionResult Create()
@@ -45,6 +44,7 @@ namespace WebAppMVCbasics2app.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            createCity.Countries = _countryService.All().CountryList;
             return View(createCity);
         }
     }

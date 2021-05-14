@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models;
 using WebAppMVCbasics2app.Models.ViewModel;
+using Microsoft.EntityFrameworkCore;
+using WebAppMVCbasics2app.Interfaces;
+
 
 namespace WebAppMVCbasics2app.Controllers
 {
@@ -12,10 +15,13 @@ namespace WebAppMVCbasics2app.Controllers
     public class PeopleController : Controller
     {
         IPeopleService _peopleService;
+        ILanguageService _languageService;
 
-        public PeopleController(IPeopleService peopleService)
+
+        public PeopleController(IPeopleService peopleService, ILanguageService languageService)
         {
             _peopleService = peopleService;
+            _languageService = languageService;
         }
 
         [HttpGet]
@@ -71,7 +77,20 @@ namespace WebAppMVCbasics2app.Controllers
             PeopleViewModel pvm = _peopleService.FindBy(filter);
             return View("Index", pvm);
         }
-               
+
+        public IActionResult PersonLanguageRemove(int id, int languageId)
+        {
+            Person person = _peopleService.FindBy(id);
+
+            if (person == null)
+                return RedirectToAction("Index");
+
+            //TODO: needs fixing here!
+            return RedirectToAction("Index");
+
+        }
+
+
         public IActionResult Delete(int id)
         {
             Person person = _peopleService.FindBy(id);

@@ -14,19 +14,16 @@ namespace WebAppMVCbasics2app.Models
         {
             _languageRepo = languageRepo;
         }
-
         public Language Add(CreateLanguage CreateLanguage)
         {
             Language language = new Language();
             language.Name = CreateLanguage.Name;
             return _languageRepo.Create(language);
         }
-
         public List<Language> All()
         {
             return _languageRepo.Read();
         }
-
         public Language Edit(int id, CreateLanguage language)
         {
             Language l = FindbyId(id);
@@ -38,12 +35,10 @@ namespace WebAppMVCbasics2app.Models
 
             return l;
         }
-
         public Language FindbyId(int id)
         {
             return _languageRepo.Read(id);
         }
-
         public bool Remove(int id)
         {
             return _languageRepo.Delete(id);

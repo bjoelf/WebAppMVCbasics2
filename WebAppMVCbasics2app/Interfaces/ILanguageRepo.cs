@@ -10,8 +10,8 @@ namespace WebAppMVCbasics2app.Interfaces
     {
         public Language Create(Language language);
         public List<Language> Read();
-        public Language Read(int id);
+        public Language Read(int Id);
         public Language Update(Language language);
-        public bool Delete(int id);
+        public bool Delete(int personId);
     }
 }

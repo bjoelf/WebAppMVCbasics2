@@ -1,0 +1,19 @@
+﻿@model Person
+
+
+<div class=" row">
+    <div class="col-3">
+        <p>@Model.Name</p>
+    </div>
+    <div class="col-3">
+        <p>@(Model.LiveInCity == null ? "No city association" : Model.LiveInCity.CityName)</p>
+    </div>
+    <div class="col-3">
+        <p>@Model.Phone</p>
+    </div>
+    <div class="col-3">
+        <a asp-action="Delete" asp-controller="People" asp-route-id="@Model.Id">Delete</a>
+        <a asp-action="Edit" asp-controller="People" asp-route-id="@Model.Id">Edit</a>
+        <a asp-action="ManagePersonLanguages" asp-controller="People" asp-route-id="@Model.Id">Languages</a>
+    </div>
+</div>

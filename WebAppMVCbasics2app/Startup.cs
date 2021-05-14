@@ -40,6 +40,7 @@ namespace WebAppMVCbasics2app
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IPersonLanguageService, PersonLanguageService>();
 
 
             //**************************** Repo: *****************************************************
@@ -47,6 +48,7 @@ namespace WebAppMVCbasics2app
             services.AddScoped<ICityRepo, DbCityRepo>();
             services.AddScoped<ICountryRepo, DbCountryRepo>();
             services.AddScoped<ILanguageRepo, DbLanguageRepo>();
+            services.AddScoped<IPersonLanguageRepo, DbPersonLanguageRepo>();
 
             services.AddMvc();
         }

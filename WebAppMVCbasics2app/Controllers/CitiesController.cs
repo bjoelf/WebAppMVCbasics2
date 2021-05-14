@@ -22,13 +22,11 @@ namespace WebAppMVCbasics2app.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //Ändra ICityService och CityService och sen här!
             return View(_cityService.All());
         }
 
         public IActionResult Create()
         {
-            //TODO: Kolla om denna konverterng funkar. 
             CreateCity createCity = new CreateCity();
             createCity.Countries = _countryService.All().CountryList;
             return View(createCity);

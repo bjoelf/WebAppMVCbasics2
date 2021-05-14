@@ -31,13 +31,12 @@ namespace WebAppMVCbasics2app.Database
 
         public List<Person> Read()
         {
-            //TODO: här smäller det när People sidan öppnas.
             return _peopleDbContext.People.Include("LiveInCity").ToList();
         }
 
         public Person Read(int id)
         {
-            return _peopleDbContext.People.SingleOrDefault(row => row.Id == id);
+            return _peopleDbContext.People.Include("LiveInCity").SingleOrDefault(row => row.Id == id);
         }
 
         public Person Update(Person person)

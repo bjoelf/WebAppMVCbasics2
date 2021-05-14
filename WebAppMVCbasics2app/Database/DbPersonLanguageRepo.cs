@@ -28,17 +28,17 @@ namespace WebAppMVCbasics2app.Database
         {
             return _peopleDbContext.PersonLanguages.ToList();
         }
-        public PersonLanguage Read(int id)
+        public PersonLanguage Read(int id, int languageId)
         {
-            return _peopleDbContext.PersonLanguages.SingleOrDefault(x => x.LanguageId == id);
+            return _peopleDbContext.PersonLanguages.SingleOrDefault(pl => pl.PersonId == id  && pl.LanguageId == languageId);
         }
-        public bool Delete(int id)
+        public bool Delete(int id, int languageId)
         {
-            PersonLanguage pl = Read(id);
+            PersonLanguage pl = Read(id, languageId);
             if (pl == null)
                 return false;
 
-            _peopleDbContext.Remove(id);
+            _peopleDbContext.Remove(pl);
             int res = _peopleDbContext.SaveChanges();
 
             if (res == 0)

@@ -32,12 +32,6 @@ namespace WebAppMVCbasics2app.Models
             return cvm;
         }
 
-        //public List<Country> All()
-        //{
-        //    //Ny metod som returnerar lista
-        //    return _countryRepo.Read();
-        //}
-
         public Country FindById(int id)
         {
             return _countryRepo.Read(id);

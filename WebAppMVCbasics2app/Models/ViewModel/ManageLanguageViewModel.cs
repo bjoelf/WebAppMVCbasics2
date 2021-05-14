@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebAppMVCbasics2app.Models.ViewModel
 {
-    public class ManageLanguageModel
+    public class ManageLanguageViewModel
     {
-
+        public Person Person { get; set; }
+        public List<Language> Languages { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace WebAppMVCbasics2app.Interfaces
         PersonLanguage Add(PersonLanguage personLanguage);
         PersonLanguage Add(int id, int personLanguageId);
         List<PersonLanguage> All();
-        PersonLanguage FindbyId(int id);
+        PersonLanguage FindbyId(int id, int personLanguageId);
         bool Remove(int id, int personLanguageId);
     }
 }

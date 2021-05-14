@@ -16,14 +16,16 @@ namespace WebAppMVCbasics2app.Controllers
     {
         IPeopleService _peopleService;
         ILanguageService _languageService;
-
-
-        public PeopleController(IPeopleService peopleService, ILanguageService languageService)
+        IPersonLanguageService _personLanguageService;
+        
+        
+        public PeopleController(IPeopleService peopleService, ILanguageService languageService, IPersonLanguageService personLanguageService)
         {
             _peopleService = peopleService;
             _languageService = languageService;
+            _personLanguageService = personLanguageService;
         }
-
+        
         [HttpGet]
         public IActionResult Index()
         {
@@ -44,8 +46,7 @@ namespace WebAppMVCbasics2app.Controllers
         {
             return View(list);
         }
-
-        
+                
         public IActionResult Details(int id)
         {
             Person person = _peopleService.FindBy(id);
@@ -78,19 +79,47 @@ namespace WebAppMVCbasics2app.Controllers
             return View("Index", pvm);
         }
 
-        public IActionResult PersonLanguageRemove(int id, int languageId)
+        public IActionResult LanguageManagement(int id)
         {
             Person person = _peopleService.FindBy(id);
 
             if (person == null)
                 return RedirectToAction("Index");
 
-            //TODO: needs fixing here!
-            return RedirectToAction("Index");
+            ManageLanguageViewModel mlvm = new ManageLanguageViewModel();
+            mlvm.Person = person;
+            mlvm.Languages = _languageService.All();
 
+            return View(mlvm);
         }
 
+        public IActionResult PersonLanguageRemove(int id, int languageId)
+        {
+            PersonLanguage pl = _personLanguageService.FindbyId(id, languageId);
 
+            if (pl == null)
+                return RedirectToAction("Index");
+
+            bool result = _personLanguageService.Remove(id, languageId);
+
+            if (result)
+                return RedirectToAction("Index");
+
+            //TODO: needs fixing here!
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult PersonLanguageAdd(int id, int languageId)
+        {
+            Person person = _peopleService.FindBy(id);
+            Language l = _languageService.FindbyId(languageId);
+
+            if (person == null || l == null)
+                return RedirectToAction("Index");
+
+            //TODO: Måste ändras till rätt Action!
+            return RedirectToAction("Index");
+        }
         public IActionResult Delete(int id)
         {
             Person person = _peopleService.FindBy(id);

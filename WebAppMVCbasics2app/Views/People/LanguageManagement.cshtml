@@ -20,7 +20,7 @@
             @foreach (var item in Model.Person.PersonLanguage)
             {
                 <li>@item.Language.Name</li>
-                @Html.ActionLink("Remove", "PersonLanguageRemove", "People", new { personId = Model.Person.Id, langId = item.LanguageId })
+                @Html.ActionLink("Remove", "PersonLanguageRemove", "People", new { personId = Model.Person.Id, languageId = item.LanguageId })
             }
         </ul>
     </div>
@@ -29,7 +29,7 @@
             @foreach (var item in Model.Languages)
             {
                 <li>
-                    @item.Name @Html.ActionLink("Add", "PersonLanguageAdd", "People", new { personId = Model.Person.Id, langId = item.Id })
+                    @item.Name @Html.ActionLink("Add", "PersonLanguageAdd", "People", new { personId = Model.Person.Id, languageId = item.Id })
                 </li>
             }
         </ul>

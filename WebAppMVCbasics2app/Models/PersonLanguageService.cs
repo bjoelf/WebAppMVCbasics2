@@ -17,10 +17,10 @@ namespace WebAppMVCbasics2app.Models
         {
             return _personLanguageRepo.Create(personLanguage);
         }
-        public PersonLanguage Add(int id, int personLanguageId)
+        public PersonLanguage Add(int id, int languageId)
         {
             PersonLanguage pl = new PersonLanguage();
-            pl.LanguageId = personLanguageId;
+            pl.LanguageId = languageId;
             pl.PersonId = id;
             return Add(pl);
         }

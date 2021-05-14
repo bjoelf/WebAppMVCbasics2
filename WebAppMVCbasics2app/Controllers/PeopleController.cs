@@ -82,32 +82,34 @@ namespace WebAppMVCbasics2app.Controllers
             mlvm.Person.PersonLanguage = _personLanguageService.FindbyId(id);
 
             mlvm.Languages = _languageService.All();
-            return View(mlvm);
+            return View("LanguageManagement", mlvm);
         }
-        public IActionResult PersonLanguageRemove(int id, int languageId)
+        public IActionResult PersonLanguageRemove(int personId, int languageId)
         {
-            PersonLanguage pl = _personLanguageService.FindbyId(id, languageId);
+            PersonLanguage pl = _personLanguageService.FindbyId(personId, languageId);
 
             if (pl == null)
                 return RedirectToAction("Index");
 
-            bool result = _personLanguageService.Remove(id, languageId);
+            bool result = _personLanguageService.Remove(personId, languageId);
 
             if (result)
-                return RedirectToAction("Index");
+                return RedirectToAction("LanguageManagement", new { id = personId });
 
             //TODO: needs fixing here!
             return RedirectToAction("Index");
         }
-        public IActionResult PersonLanguageAdd(int id, int languageId)
+        public IActionResult PersonLanguageAdd(int personId, int languageId)
         {
-            Person person = _peopleService.FindBy(id);
+            Person person = _peopleService.FindBy(personId);
             Language l = _languageService.FindbyId(languageId);
-
-            if (person == null || l == null)
-                return RedirectToAction("Index");
-
-            //TODO: Måste ändras till rätt Action!
+            if (person != null || l != null)
+            {
+                PersonLanguage personLanguage = _personLanguageService.Add(personId, languageId);
+                
+                //TODO: Måste ändras till rätt Action!
+                return RedirectToAction("LanguageManagement", new { id = personId });
+            }
             return RedirectToAction("Index");
         }
         public IActionResult Delete(int id)

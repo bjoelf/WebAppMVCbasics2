@@ -11,6 +11,7 @@ namespace WebAppMVCbasics2app.Interfaces
         public PersonLanguage Create(PersonLanguage personLanguage);
         public List<PersonLanguage> Read();
         public PersonLanguage Read(int id, int languageId);
+        public List<PersonLanguage> Read(int id);
         public bool Delete(int id, int languageId);
     }
 }

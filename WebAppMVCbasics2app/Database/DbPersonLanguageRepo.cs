@@ -32,6 +32,10 @@ namespace WebAppMVCbasics2app.Database
         {
             return _peopleDbContext.PersonLanguages.SingleOrDefault(pl => pl.PersonId == id  && pl.LanguageId == languageId);
         }
+        public List<PersonLanguage> Read(int id)
+        {
+            return _peopleDbContext.PersonLanguages.Where(pl => pl.PersonId == id).ToList();
+        }
         public bool Delete(int id, int languageId)
         {
             PersonLanguage pl = Read(id, languageId);

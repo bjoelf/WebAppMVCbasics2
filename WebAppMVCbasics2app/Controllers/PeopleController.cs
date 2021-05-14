@@ -17,21 +17,19 @@ namespace WebAppMVCbasics2app.Controllers
         IPeopleService _peopleService;
         ILanguageService _languageService;
         IPersonLanguageService _personLanguageService;
-        
-        
+                
         public PeopleController(IPeopleService peopleService, ILanguageService languageService, IPersonLanguageService personLanguageService)
         {
             _peopleService = peopleService;
             _languageService = languageService;
             _personLanguageService = personLanguageService;
         }
-        
+
         [HttpGet]
         public IActionResult Index()
         {
             return View(_peopleService.All());
         }
-
         [HttpPost]
         public IActionResult Index(CreatePersonViewModel createPersonViewModel)
         {
@@ -41,12 +39,10 @@ namespace WebAppMVCbasics2app.Controllers
             }
             return View(_peopleService.All());
         }
-
         public IActionResult Index(PeopleViewModel list)
         {
             return View(list);
         }
-                
         public IActionResult Details(int id)
         {
             Person person = _peopleService.FindBy(id);
@@ -56,13 +52,10 @@ namespace WebAppMVCbasics2app.Controllers
 
             return View(person);
         }
-
-        //Ny metod för avslut av details      
         public IActionResult endPeopleDetails(int id)
         {
             return PartialView("_PeopleTableRow",_peopleService.FindBy(id));
         }
-
         public IActionResult PartialDetailes(int id)
         {
             Person person = _peopleService.FindBy(id);
@@ -72,13 +65,11 @@ namespace WebAppMVCbasics2app.Controllers
 
             return PartialView("_PeopleDetailsTableRow", person);
         }
-
         public IActionResult Filter(PeopleViewModel filter)
         {
             PeopleViewModel pvm = _peopleService.FindBy(filter);
             return View("Index", pvm);
         }
-
         public IActionResult LanguageManagement(int id)
         {
             Person person = _peopleService.FindBy(id);
@@ -88,11 +79,11 @@ namespace WebAppMVCbasics2app.Controllers
 
             ManageLanguageViewModel mlvm = new ManageLanguageViewModel();
             mlvm.Person = person;
-            mlvm.Languages = _languageService.All();
+            mlvm.Person.PersonLanguage = _personLanguageService.FindbyId(id);
 
+            mlvm.Languages = _languageService.All();
             return View(mlvm);
         }
-
         public IActionResult PersonLanguageRemove(int id, int languageId)
         {
             PersonLanguage pl = _personLanguageService.FindbyId(id, languageId);
@@ -108,7 +99,6 @@ namespace WebAppMVCbasics2app.Controllers
             //TODO: needs fixing here!
             return RedirectToAction("Index");
         }
-
         public IActionResult PersonLanguageAdd(int id, int languageId)
         {
             Person person = _peopleService.FindBy(id);

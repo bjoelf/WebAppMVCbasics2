@@ -32,6 +32,10 @@ namespace WebAppMVCbasics2app.Models
         {
             return _personLanguageRepo.Read(id, personLanguageId);
         }
+        public List<PersonLanguage> FindbyId(int id)
+        {
+            return _personLanguageRepo.Read(id);
+        }
         public bool Remove(int id, int personLanguageId)
         {
             return _personLanguageRepo.Delete(id, personLanguageId);

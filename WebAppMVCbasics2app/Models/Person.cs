@@ -19,6 +19,9 @@ namespace WebAppMVCbasics2app.Models
         [MaxLength(20)]
         public string Phone { get; set; }
 
+        //        [Required(ErrorMessage = "You must select a city/or rural")]
+        
+       // [Required]
         public City LiveInCity { get; set; }
 
         [ForeignKey("LiveInCity")]

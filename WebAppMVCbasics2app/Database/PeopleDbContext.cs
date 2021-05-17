@@ -4,15 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAppMVCbasics2app.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebAppMVCbasics2app.Database
 {
-    public class PeopleDbContext : DbContext
+    public class PeopleDbContext : IdentityDbContext<IdentityUser> 
     {
         public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<PersonLanguage>().HasKey(pl =>
             new
             {

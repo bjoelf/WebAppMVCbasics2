@@ -13,19 +13,24 @@
 <br />
 
 <form class="text-center" asp-action="Index" asp-controller="People" method="post">
+
+    @* Try add error message here for all elements in the form. *@
+    @*<span asp-validation-for="All" class="text-danger"></span>*@
+
     <label asp-for="CreatePersonViewModel.Name"></label>
     <input asp-for="CreatePersonViewModel.Name" />
-    <span asp-validation-for="CreatePersonViewModel.Name"></span>
+    <span asp-validation-for="CreatePersonViewModel.Name" class="text-danger"></span>
 
     <label asp-for="CreatePersonViewModel.Phone"></label>
     <input asp-for="CreatePersonViewModel.Phone" />
-    <span asp-validation-for="CreatePersonViewModel.Phone"></span>
+    <span asp-validation-for="CreatePersonViewModel.Phone" class="text-danger"></span>
 
 
     <label asp-for="CreatePersonViewModel.CityId"></label>
+
     <select asp-for="CreatePersonViewModel.CityId">
 
-        <option value="">No City</option>
+        <option value="5">No City/Rural</option>
 
         @foreach (var item in Model.CreatePersonViewModel.LiveInCity)
         {
@@ -33,9 +38,7 @@
         }
 
     </select>
-    <span asp-validation-for="CreatePersonViewModel.LiveInCity"></span>
-
-
+    <span asp-validation-for="CreatePersonViewModel.LiveInCity" class="text-danger"></span>
 
     <button>Add</button>
 </form>

@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using WebAppMVCbasics2app.Database;
 using WebAppMVCbasics2app.Models;
 using WebAppMVCbasics2app.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebAppMVCbasics2app
 {
@@ -33,7 +35,10 @@ namespace WebAppMVCbasics2app
             //Connection to database (local). Connectionstring in appsettings.json
             services.AddDbContext<PeopleDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //****************************************************************************************
+
+            //************************** Identity    ********************************************
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<PeopleDbContext>().AddDefaultTokenProviders();
 
             //**************************** Service IOC ***********************************************
             services.AddScoped<IPeopleService, PeopleService>();
@@ -69,7 +74,10 @@ namespace WebAppMVCbasics2app
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

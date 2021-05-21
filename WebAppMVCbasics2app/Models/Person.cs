@@ -4,21 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebAppMVCbasics2app.Models
 {
-    public class Person
-    {
+    public class Person 
+     {
         [Key]
         public int Id { get; set; }
 
         [Required]
         [MaxLength(59)]
-        public string ForName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string DayOfBirth { get; set; }
+        public string Name { get; set; }
 
         [MaxLength(20)]
         public string Phone { get; set; }

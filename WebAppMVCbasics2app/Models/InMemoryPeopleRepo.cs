@@ -22,7 +22,7 @@ namespace WebAppMVCbasics2app.Models
         }
         public Person Create(Person person)
         {
-            person.Id = ++idCounter;
+            person.SetId(++idCounter);
             PersonList.Add(person);
             return person;
         }
@@ -34,19 +34,19 @@ namespace WebAppMVCbasics2app.Models
 
         public Person Read(int id)
         {
-            Person p = PersonList.Find(x => x.Id == id);
+            Person p = PersonList.Find(x => x.GetId() == id);
             return p;
         }
 
         public Person Update(Person person)
         {
-            PersonList[person.Id] = person;
-            return PersonList[person.Id];
+            PersonList[person.GetId()] = person;
+            return PersonList[person.GetId()];
         }
         public bool Delete(Person person)
         {
             PersonList.Remove(person);
-            Person person1 = Read(person.Id);
+            Person person1 = Read(person.GetId());
             if (person1 == null)
                 return true;
             return false;

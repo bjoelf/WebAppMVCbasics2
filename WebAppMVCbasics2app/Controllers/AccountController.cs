@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using WebAppMVCbasics2app.Models;
 
 namespace WebAppMVCbasics2app.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,16 +33,18 @@ namespace WebAppMVCbasics2app.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser newUsr = new IdentityUser()
+                AppUser newUsr = new AppUser()
                 {
                     UserName = userReg.UserName,
+                    FirstName = userReg.ForName,
+                    LastName = userReg.LastName,
+                    BirthDate = userReg.DayofBirth,
                     Email = userReg.Email,
                     PhoneNumber = userReg.Phone
                 };
                 IdentityResult res = await _userManager.CreateAsync(newUsr, userReg.Password);
 
                 if (res.Succeeded)
-                    //TODO: log user in!
                     return RedirectToAction("Index", "Home");
 
                 foreach (var item in res.Errors)

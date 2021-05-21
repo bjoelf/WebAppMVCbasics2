@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using WebAppMVCbasics2app.Models;
 
 namespace WebAppMVCbasics2app.Controllers
 {
     [Authorize(Roles = "Admin")] //låser ner admin controllern för alla användare som inte är Admin.
     public class AdminController : Controller
     {
-        UserManager<IdentityUser> _userManager;
-        RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -40,7 +41,7 @@ namespace WebAppMVCbasics2app.Controllers
         public async Task<IActionResult> RolesManagement(string id)
         {
             //Hämta anvädaren
-            IdentityUser userFound = await _userManager.FindByIdAsync(id);
+            AppUser userFound = await _userManager.FindByIdAsync(id);
             if (userFound == null)
                 return RedirectToAction(nameof(UserList));
 
@@ -56,7 +57,7 @@ namespace WebAppMVCbasics2app.Controllers
         }
         public async Task<IActionResult> AddRoleToUser(string userId, string roleName)
         {
-            IdentityUser userFound = await _userManager.FindByIdAsync(userId);
+            AppUser userFound = await _userManager.FindByIdAsync(userId);
 
             if (userFound == null)
                 return RedirectToAction(nameof(UserList));
@@ -78,7 +79,7 @@ namespace WebAppMVCbasics2app.Controllers
         }
         public async Task<IActionResult> RemoveRoleFromUser(string userId, string roleName)
         {
-            IdentityUser userFound = await _userManager.FindByIdAsync(userId);
+            AppUser userFound = await _userManager.FindByIdAsync(userId);
 
             if (userFound == null)
                 return RedirectToAction(nameof(UserList));

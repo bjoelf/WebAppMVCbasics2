@@ -43,9 +43,8 @@ namespace WebAppMVCbasics2app
                 {
                     var context = services.GetRequiredService<PeopleDbContext>();
                     RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    UserManager<IdentityUser> userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-
-                    DbInitializer.Initialize(context,roleManager,userManager);
+                    UserManager<AppUser> appUser = services.GetRequiredService<UserManager<AppUser>>();
+                    DbInitializer.Initialize(context,roleManager,appUser);
                 }
                 catch (Exception ex)
                 {
@@ -56,10 +55,3 @@ namespace WebAppMVCbasics2app
         }
     }
 }
-
-
-
-//public static void Initialize(PeopleDbContext context,
-//    RoleManager<IdentityRole> roleManager,
-//    UserManager<IdentityUser> userManager
-//    )

@@ -33,12 +33,14 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="People" asp-action="Index">People!</a>
                             </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+
                             @* Addes link to Languages index page here... *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Languages" asp-action="Index">Languages!</a>
                             </li>
-
-
                             @* Addes link to Cities index page here... *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities!</a>
@@ -50,16 +52,14 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin zone</a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logon">Login</a>
-                            </li>
+                            }
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logon">Login</a>
-                            </li>
+                            //Logon menyu diseapear for loged on users
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logon">Login</a>
+                        </li>
                         }
                     </ul>
                 </div>

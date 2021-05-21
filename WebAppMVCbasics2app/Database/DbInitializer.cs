@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using WebAppMVCbasics2app.Models;
 
 namespace WebAppMVCbasics2app.Database
 {
@@ -11,7 +12,7 @@ namespace WebAppMVCbasics2app.Database
     {
         public static void Initialize(PeopleDbContext context,
             RoleManager<IdentityRole> roleManager,
-            UserManager<IdentityUser> userManager
+            UserManager<AppUser> appUser
             )
         {
             //context.Database.EnsureCreated();//If not using EF migrations
@@ -21,7 +22,7 @@ namespace WebAppMVCbasics2app.Database
                 return;
 
             //------ Seed into database ----------------------------------------
-            string[] rolesToSeed = new string[] { "Admin", "Superuser", "Customer" };
+            string[] rolesToSeed = new string[] { "Admin", "User"};
 
             foreach (var roleName in rolesToSeed)
             {
@@ -35,21 +36,29 @@ namespace WebAppMVCbasics2app.Database
                 }
             }
 
-            IdentityUser user = new IdentityUser()
+            AppUser user = new AppUser()
             {
-                UserName = "Admin_seeding",
+                UserName = "AdminSeeding",
+                LastName = "Admin",
+                FirstName = "Super",
+                BirthDate = "2021-05-21",
                 Email = "a@a.a",
                 PhoneNumber = "123123123"
             };
-            IdentityResult resultUser = userManager.CreateAsync(user, "Qwerty!23456").Result;
+
+            IdentityResult resultUser = appUser.CreateAsync(user, "Qwerty!23456").Result;
 
             if (!resultUser.Succeeded)
-                throw new Exception("Faild to create Admin Acc: AdminPower");
+            {
+                throw new Exception("Faild to create Admin Acc: AdminSeeding");
+            }
 
-            IdentityResult resultAssign = userManager.AddToRoleAsync(user, rolesToSeed[0]).Result;
+            IdentityResult resultAssign = appUser.AddToRoleAsync(user, rolesToSeed[0]).Result;
 
             if (!resultAssign.Succeeded)
-                throw new Exception($"Faild to grant {rolesToSeed[0]} role to AdminPower");
+            {
+                throw new Exception($"Faild to grant {rolesToSeed[0]} role to AdminSeeding");
+            }
         }
     }
 }

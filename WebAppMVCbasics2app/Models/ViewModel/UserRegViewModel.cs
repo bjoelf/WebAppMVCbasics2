@@ -13,6 +13,18 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         public string UserName { get; set; }
 
         [Required]
+        [StringLength(30, MinimumLength = 5)]
+        public string ForName { get; set; }
+
+        [Required]
+        [StringLength(30, MinimumLength = 5)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(30, MinimumLength = 5)]
+        public string DayofBirth { get; set; }
+
+        [Required]
         [StringLength(50, MinimumLength = 5)]
         public string Email { get; set; }
 

@@ -11,10 +11,7 @@
 }
 
 <form asp-action="CreateRole" asp-controller="Admin" method="post">
-
     <label for="roleName">Role name:</label>
-
     <input type="text" required id="roleName" name="roleName" min="3" value="@Model" />
-
     <button>Create</button>
 </form>

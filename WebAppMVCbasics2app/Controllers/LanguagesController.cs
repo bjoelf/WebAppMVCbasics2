@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebAppMVCbasics2app.Interfaces;
 using WebAppMVCbasics2app.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMVCbasics2app.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LanguagesController : Controller
     {
         private readonly ILanguageService _languageService;

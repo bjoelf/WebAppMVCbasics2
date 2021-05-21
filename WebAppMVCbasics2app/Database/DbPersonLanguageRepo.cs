@@ -30,11 +30,12 @@ namespace WebAppMVCbasics2app.Database
         }
         public PersonLanguage Read(int id, int languageId)
         {
-            return _peopleDbContext.PersonLanguages.SingleOrDefault(pl => pl.PersonId == id  && pl.LanguageId == languageId);
+            return _peopleDbContext.PersonLanguages.SingleOrDefault(pl => pl.PersonId.Equals(id)  && pl.LanguageId == languageId);
         }
         public List<PersonLanguage> Read(int id)
         {
-            return _peopleDbContext.PersonLanguages.Where(pl => pl.PersonId == id).ToList();
+            //TODO: ändra alla sök på string till .Equals()
+            return _peopleDbContext.PersonLanguages.Where(pl => pl.PersonId.Equals(id)).ToList();
         }
         public bool Delete(int id, int languageId)
         {

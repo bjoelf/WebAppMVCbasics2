@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebAppMVCbasics2app.Database
 {
-    public class PeopleDbContext : IdentityDbContext<IdentityUser> 
+    public class PeopleDbContext : IdentityDbContext<AppUser> 
     {
         public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options)
         { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

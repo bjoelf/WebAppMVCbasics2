@@ -37,7 +37,7 @@ namespace WebAppMVCbasics2app
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //************************** Identity    ********************************************
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<PeopleDbContext>().AddDefaultTokenProviders();
 
             //**************************** Service IOC ***********************************************

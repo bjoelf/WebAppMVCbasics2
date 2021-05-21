@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMVCbasics2app.Controllers
 {
-    [Authorize] //låser ner admin controllern för alla användare som inte är Admin.
+    [Authorize(Roles = "Admin")] //låser ner admin controllern för alla användare som inte är Admin.
     public class AdminController : Controller
     {
         UserManager<IdentityUser> _userManager;

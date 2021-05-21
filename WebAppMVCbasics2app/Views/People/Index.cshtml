@@ -17,9 +17,19 @@
     @* Try add error message here for all elements in the form. *@
     @*<span asp-validation-for="All" class="text-danger"></span>*@
 
-    <label asp-for="CreatePersonViewModel.Name"></label>
-    <input asp-for="CreatePersonViewModel.Name" />
-    <span asp-validation-for="CreatePersonViewModel.Name" class="text-danger"></span>
+    <label asp-for="CreatePersonViewModel.ForName"></label>
+    <input asp-for="CreatePersonViewModel.ForName" />
+    <span asp-validation-for="CreatePersonViewModel.ForName" class="text-danger"></span>
+
+    <label asp-for="CreatePersonViewModel.LastName"></label>
+    <input asp-for="CreatePersonViewModel.LastName" />
+    <span asp-validation-for="CreatePersonViewModel.LastName" class="text-danger"></span>
+
+
+    <label asp-for="CreatePersonViewModel.DayOfBirth"></label>
+    <input  asp-for="CreatePersonViewModel.DayOfBirth" />
+    <span asp-validation-for="CreatePersonViewModel.DayOfBirth" class="text-danger"></span>
+
 
     <label asp-for="CreatePersonViewModel.Phone"></label>
     <input asp-for="CreatePersonViewModel.Phone" />

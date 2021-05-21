@@ -23,7 +23,9 @@ namespace WebAppMVCbasics2app.Models
         {
             Person pNew = new Person();
 
-            pNew.Name = person.Name;
+            pNew.ForName = person.ForName;
+            pNew.LastName = person.LastName;
+            pNew.DayOfBirth = person.DayOfBirth;
             pNew.Phone = person.Phone;
             pNew.CityId = person.CityId;
 
@@ -43,7 +45,7 @@ namespace WebAppMVCbasics2app.Models
         {
             //TODO: ändra säk enligt bild från Ulf.
             PeopleViewModel pvm = new PeopleViewModel();
-            pvm.PeopleList = _peopleRepo.Read().Where(x => x.Name.Contains(find.Search) || x.LiveInCity.CityName.Contains(find.Search)).ToList();
+            pvm.PeopleList = _peopleRepo.Read().Where(x => x.ForName.Contains(find.Search) || x.LiveInCity.CityName.Contains(find.Search)).ToList();
             return pvm;
           }
   
@@ -58,7 +60,7 @@ namespace WebAppMVCbasics2app.Models
             if (_person == null)
                 return null;
 
-            _person.Name = person.Name;
+            _person.ForName = person.ForName;
             _person.Phone = person.Phone;
             _person.LiveInCity.CityName = person.LiveInCity.CityName;
 

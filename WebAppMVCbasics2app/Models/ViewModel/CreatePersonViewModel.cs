@@ -12,7 +12,12 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         //annotations to validate inputs when creating new person
 
         [Required]
-        public string Name { get; set; }
+        public string ForName { get; set; }
+        //[Required]
+        public string LastName { get; set; }
+        //[Required]
+        public string DayOfBirth { get; set; }
+
         [Required]
         public string Phone { get; set; }
         public List<City> LiveInCity { get; set; }

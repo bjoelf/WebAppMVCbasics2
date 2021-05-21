@@ -14,7 +14,7 @@ namespace WebAppMVCbasics2app.Models.ViewModel
         public RolesManagementViewModel(string userId, IList<string> userRoles, List<IdentityRole> identityRoles)
         {
             UserId = userId;
-            UserRoles = UserRoles;
+            UserRoles = userRoles;
             IdentityRoles = identityRoles;
             FilterRoles();
         }

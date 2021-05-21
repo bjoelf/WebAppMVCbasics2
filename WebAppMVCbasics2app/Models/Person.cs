@@ -14,13 +14,15 @@ namespace WebAppMVCbasics2app.Models
 
         [Required]
         [MaxLength(59)]
-        public string Name { get; set; }
+        public string ForName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string DayOfBirth { get; set; }
 
         [MaxLength(20)]
         public string Phone { get; set; }
 
-        //        [Required(ErrorMessage = "You must select a city/or rural")]
-        
        // [Required]
         public City LiveInCity { get; set; }
 

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models.ViewModel;
 using WebAppMVCbasics2app.Interfaces;
 using WebAppMVCbasics2app.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMVCbasics2app.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         private readonly ICityService _cityService;

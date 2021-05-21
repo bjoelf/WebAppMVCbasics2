@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppMVCbasics2app.Models.ViewModel;
 using WebAppMVCbasics2app.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMVCbasics2app.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CountriesController : Controller
     {
         private readonly ICountryService _countryService;

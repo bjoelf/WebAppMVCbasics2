@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebAppMVCbasics2app.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using WebAppMVCbasics2app.Database;
 
 namespace WebAppMVCbasics2app
 {
@@ -13,7 +19,12 @@ namespace WebAppMVCbasics2app
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            CreateDbIfNotExists(host);
+            host.Run();
+
+            //Original line of code
+            //CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +33,33 @@ namespace WebAppMVCbasics2app
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<PeopleDbContext>();
+                    RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    UserManager<IdentityUser> userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+                    DbInitializer.Initialize(context,roleManager,userManager);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while creating the DB.");
+                }
+            }
+        }
     }
 }
+
+
+
+//public static void Initialize(PeopleDbContext context,
+//    RoleManager<IdentityRole> roleManager,
+//    UserManager<IdentityUser> userManager
+//    )

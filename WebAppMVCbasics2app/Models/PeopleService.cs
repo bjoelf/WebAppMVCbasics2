@@ -39,6 +39,11 @@ namespace WebAppMVCbasics2app.Models
             return vm;
         }
 
+        public List<Person> AllPerson()
+        {
+            return _peopleRepo.ReadPerson();
+        }
+
         public PeopleViewModel FindBy(PeopleViewModel find)
         {
             //TODO: ändra säk enligt bild från Ulf.

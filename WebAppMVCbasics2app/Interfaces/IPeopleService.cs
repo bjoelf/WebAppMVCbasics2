@@ -10,6 +10,7 @@ namespace WebAppMVCbasics2app.Models
     {
         public Person Add(CreatePersonViewModel person);
         public PeopleViewModel All();
+        public List<Person> AllPerson();
         public PeopleViewModel FindBy(PeopleViewModel search);
         public Person FindBy(int id);
         Person Edit(int id, Person person);

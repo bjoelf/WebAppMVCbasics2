@@ -33,6 +33,10 @@ namespace WebAppMVCbasics2app.Database
         {
             return _peopleDbContext.People.Include("LiveInCity").ToList();
         }
+        public List<Person> ReadPerson()
+        {
+            return _peopleDbContext.People.ToList();
+        }
 
         public Person Read(int id)
         {

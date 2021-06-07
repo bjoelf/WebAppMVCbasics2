@@ -14,6 +14,7 @@ using WebAppMVCbasics2app.Models;
 using WebAppMVCbasics2app.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace WebAppMVCbasics2app
 {
@@ -54,6 +55,18 @@ namespace WebAppMVCbasics2app
             services.AddScoped<ILanguageRepo, DbLanguageRepo>();
             services.AddScoped<IPersonLanguageRepo, DbPersonLanguageRepo>();
 
+
+            //------------------------- CORS -----------------------------------------------------------
+            services.AddCors(options =>{
+                options.AddPolicy("ReactPolicy",
+                    builder => {
+                        builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
+
+            //Swagger
+            services.AddSwaggerGen();
+
             services.AddMvc();
         }
 
@@ -72,10 +85,23 @@ namespace WebAppMVCbasics2app
                 app.UseHsts();
             }
 
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Person CMS API V1");
+            });
+
+
             app.UseRouting();
+
+            //Cors
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();

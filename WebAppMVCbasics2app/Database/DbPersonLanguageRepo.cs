@@ -34,7 +34,6 @@ namespace WebAppMVCbasics2app.Database
         }
         public List<PersonLanguage> Read(int id)
         {
-            //TODO: ändra alla sök på string till .Equals()
             return _peopleDbContext.PersonLanguages.Where(pl => pl.PersonId.Equals(id)).ToList();
         }
         public bool Delete(int id, int languageId)

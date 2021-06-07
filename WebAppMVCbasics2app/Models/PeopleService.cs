@@ -46,7 +46,6 @@ namespace WebAppMVCbasics2app.Models
 
         public PeopleViewModel FindBy(PeopleViewModel find)
         {
-            //TODO: ändra säk enligt bild från Ulf.
             PeopleViewModel pvm = new PeopleViewModel();
             pvm.PeopleList = _peopleRepo.Read().Where(x => x.Name.Contains(find.Search) || x.LiveInCity.CityName.Contains(find.Search)).ToList();
             return pvm;

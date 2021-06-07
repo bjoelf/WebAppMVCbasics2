@@ -96,7 +96,6 @@ namespace WebAppMVCbasics2app.Controllers
             if (result)
                 return RedirectToAction("LanguageManagement", new { id = personId });
 
-            //TODO: needs fixing here!
             return RedirectToAction("Index");
         }
         public IActionResult PersonLanguageAdd(int personId, int languageId)
@@ -107,7 +106,6 @@ namespace WebAppMVCbasics2app.Controllers
             {
                 PersonLanguage personLanguage = _personLanguageService.Add(personId, languageId);
                 
-                //TODO: Måste ändras till rätt Action!
                 return RedirectToAction("LanguageManagement", new { id = personId });
             }
             return RedirectToAction("Index");

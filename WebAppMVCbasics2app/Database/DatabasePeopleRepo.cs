@@ -40,7 +40,24 @@ namespace WebAppMVCbasics2app.Database
 
         public Person Read(int id)
         {
-            return _peopleDbContext.People.Include("LiveInCity").SingleOrDefault(row => row.Id == id);
+            //return _peopleDbContext.People.Include("LiveInCity").SingleOrDefault(row => row.Id == id);
+
+            Person p = _peopleDbContext.People.Include(person => person.PersonLanguage).ThenInclude(perLan => perLan.Language)
+                                    .Include(person => person.LiveInCity)
+                                    .ThenInclude(incity => incity.Country)
+                                    .SingleOrDefault(row => row.Id == id);
+
+            if (p.PersonLanguage != null)
+                foreach (var item in p.PersonLanguage)
+                {
+                    item.Person = null;
+                    item.Language.PersonLanguage = null;
+                }
+
+            if (p.LiveInCity.Country != null)
+                p.LiveInCity.Country.CityInCountry = null;
+
+            return p;
         }
 
         public Person Update(Person person)

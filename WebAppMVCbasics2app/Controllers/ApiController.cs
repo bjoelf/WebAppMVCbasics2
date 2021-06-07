@@ -8,9 +8,11 @@ using WebAppMVCbasics2app.Models.ViewModel;
 using WebAppMVCbasics2app.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using WebAppMVCbasics2app.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebAppMVCbasics2app.Controllers
 {
+    [EnableCors("ReactPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ApiController : ControllerBase
@@ -18,12 +20,16 @@ namespace WebAppMVCbasics2app.Controllers
         private readonly IPeopleService _peopleService;
         private readonly ILanguageService _languageService;
         private readonly IPersonLanguageService _personLanguageService;
+        private readonly ICityService _cityService;
+        private readonly ICountryService _countryService;
 
-        public ApiController(IPeopleService peopleService, ILanguageService languageService, IPersonLanguageService personLanguageService) 
+        public ApiController(IPeopleService peopleService, ILanguageService languageService, IPersonLanguageService personLanguageService, ICityService cityService, ICountryService countryService) 
         {
             _peopleService = peopleService;
             _languageService = languageService;
             _personLanguageService = personLanguageService;
+            _cityService = cityService;
+            _countryService = countryService;
         }
 
         // GET: api/<ApiController>
@@ -33,43 +39,85 @@ namespace WebAppMVCbasics2app.Controllers
             return Ok(_peopleService.AllPerson());
         }
 
+        [HttpGet("/api/Cities")]
+        public ActionResult<IEnumerable<City>> GetCities()
+        {
+            List<City> c = _cityService.All().CityList;
+            foreach (var item in c)
+            {
+                item.Country = null;
+                item.PersonInCity = null;
+            }
+            return Ok(c);
+        }
+
+        [HttpGet("/api/Countries")]
+        public ActionResult<IEnumerable<Country>> GetCountries()
+        {
+            List<Country> c = _countryService.All().CountryList;
+            foreach (var item in c)
+                item.CityInCountry = null;
+            return Ok(c);
+        }
+
+
         // GET api/<ApiController>/1
         [HttpGet("{id}")]
-        public Person Get(int id)
+        public ActionResult <Person> Get(int id)
         {
-            return _peopleService.FindBy(id);
+            Person p = _peopleService.FindBy(id);
+            if (p == null)
+                return BadRequest();
+
+            if (p.PersonLanguage != null)
+            {
+                foreach (var item in p.PersonLanguage)
+                {
+                    item.Person = null;
+                    item.Language.PersonLanguage = null;
+                }
+            }
+
+            if (p.CityId != null)
+            {
+                p.LiveInCity = _cityService.FindById((int)p.CityId);
+                p.LiveInCity.PersonInCity = null;
+
+                if (p.LiveInCity.Country != null)
+                    p.LiveInCity.Country.CityInCountry = null;
+            }
+            return Ok(p);
         }
 
         // POST api/<ApiController>
         [HttpPost]
-        public int Post([FromBody] CreatePersonViewModel newPerson)
+        public ActionResult<Person> Post([FromBody] CreatePersonViewModel newPerson)
         {
-            //ToDo - code 201 created / code 400 bad request(validation failed) / code 500 database failed to create person
+            // Code 201 created / code 400 bad request(validation failed) / code 500 database failed to create person
             // Returformat int kan bytas mot IActionResult och return BadRequest();
 
             if (!ModelState.IsValid)
-                return Response.StatusCode = 400;
+                return BadRequest(newPerson);
+
+            if (newPerson.CityId == 0)
+                newPerson.CityId = 1;
 
             Person p = _peopleService.Add(newPerson);
             if (p == null)
-                return Response.StatusCode = 500;
+                return StatusCode(StatusCodes.Status500InternalServerError);
 
-            return Response.StatusCode = 201;
+            return Created("", p);
         }
 
         // DELETE api/<ApiController>/3
         [HttpDelete("{id}")]
-        public int Delete(int id)
+        public void Delete(int id)
         {
-            //ToDo - code 200 was removed / code 404 not found / code 500 database failed to delete person
-            Person p = _peopleService.FindBy(id);
-            if (p == null)
-                return Response.StatusCode = 404;
-
+            //Code 200 was removed / code 404 not found / code 500 database failed to delete person
             if (!_peopleService.Remove(id))
-                return Response.StatusCode = 500;
-
-            return Response.StatusCode = 200;
+                Response.StatusCode = 500;
+            else
+                Response.StatusCode = 200;
         }
     }
 }

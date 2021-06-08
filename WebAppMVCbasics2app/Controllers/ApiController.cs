@@ -60,7 +60,6 @@ namespace WebAppMVCbasics2app.Controllers
             return Ok(c);
         }
 
-
         // GET api/<ApiController>/1
         [HttpGet("{id}")]
         public ActionResult <Person> Get(int id)

@@ -26,6 +26,10 @@ namespace WebAppMVCbasics2app.Database
             {
                 throw new Exception("Unable to add person to database");
             }
+
+            //ny för att få med city namn etc till personTable.
+            person = Read(person.Id);
+
             return person;
         }
 
@@ -35,13 +39,19 @@ namespace WebAppMVCbasics2app.Database
         }
         public List<Person> ReadPerson()
         {
-            return _peopleDbContext.People.ToList();
-        }
+            List<Person> people = _peopleDbContext.People.Include(p => p.LiveInCity).ToList();
 
+            foreach (var p in people)
+            {
+                p.LiveInCity.PersonInCity = null;
+
+                if (p.LiveInCity.Country != null)
+                    p.LiveInCity.Country.CityInCountry = null;
+            }
+            return people;
+        }
         public Person Read(int id)
         {
-            //return _peopleDbContext.People.Include("LiveInCity").SingleOrDefault(row => row.Id == id);
-
             Person p = _peopleDbContext.People.Include(person => person.PersonLanguage).ThenInclude(perLan => perLan.Language)
                                     .Include(person => person.LiveInCity)
                                     .ThenInclude(incity => incity.Country)
@@ -56,6 +66,8 @@ namespace WebAppMVCbasics2app.Database
 
             if (p.LiveInCity.Country != null)
                 p.LiveInCity.Country.CityInCountry = null;
+
+            p.LiveInCity.PersonInCity = null;
 
             return p;
         }

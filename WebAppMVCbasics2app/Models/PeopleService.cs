@@ -71,7 +71,10 @@ namespace WebAppMVCbasics2app.Models
         }
         public bool Remove(int id)
         {
-            return _peopleRepo.Delete(_peopleRepo.Read(id));
+            Person p = _peopleRepo.Read(id);
+            if (p != null)
+                return _peopleRepo.Delete(p);
+            return false;
         }
     }
 }

@@ -32,35 +32,31 @@ namespace WebAppMVCbasics2app.Controllers
             _countryService = countryService;
         }
 
-        // GET: api/<ApiController>
+        [HttpPost]
+        public ActionResult<Person> Post([FromBody] CreatePersonViewModel newPerson)
+        {
+            // Code 201 created / code 400 bad request(validation failed) / code 500 database failed to create person
+            // Returformat int kan bytas mot IActionResult och return BadRequest();
+
+            if (!ModelState.IsValid)
+                return BadRequest(newPerson);
+
+            if (newPerson.CityId == 0)
+                newPerson.CityId = 1;
+
+            Person p = _peopleService.Add(newPerson);
+            if (p == null)
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            return Created("", p);
+        }
+
         [HttpGet]
         public ActionResult <IEnumerable<Person>> Get()
         {
             return Ok(_peopleService.AllPerson());
         }
 
-        [HttpGet("/api/Cities")]
-        public ActionResult<IEnumerable<City>> GetCities()
-        {
-            List<City> c = _cityService.All().CityList;
-            foreach (var item in c)
-            {
-                item.Country = null;
-                item.PersonInCity = null;
-            }
-            return Ok(c);
-        }
-
-        [HttpGet("/api/Countries")]
-        public ActionResult<IEnumerable<Country>> GetCountries()
-        {
-            List<Country> c = _countryService.All().CountryList;
-            foreach (var item in c)
-                item.CityInCountry = null;
-            return Ok(c);
-        }
-
-        // GET api/<ApiController>/1
         [HttpGet("{id}")]
         public ActionResult <Person> Get(int id)
         {
@@ -88,35 +84,59 @@ namespace WebAppMVCbasics2app.Controllers
             return Ok(p);
         }
 
-        // POST api/<ApiController>
-        [HttpPost]
-        public ActionResult<Person> Post([FromBody] CreatePersonViewModel newPerson)
-        {
-            // Code 201 created / code 400 bad request(validation failed) / code 500 database failed to create person
-            // Returformat int kan bytas mot IActionResult och return BadRequest();
-
-            if (!ModelState.IsValid)
-                return BadRequest(newPerson);
-
-            if (newPerson.CityId == 0)
-                newPerson.CityId = 1;
-
-            Person p = _peopleService.Add(newPerson);
-            if (p == null)
-                return StatusCode(StatusCodes.Status500InternalServerError);
-
-            return Created("", p);
-        }
-
-        // DELETE api/<ApiController>/3
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             //Code 200 was removed / code 404 not found / code 500 database failed to delete person
             if (!_peopleService.Remove(id))
-                Response.StatusCode = 500;
+                Response.StatusCode = 400;
             else
                 Response.StatusCode = 200;
         }
+
+        //---------------- City / Cities -----------------
+        //CRUD
+
+        [HttpPost("/api/City")]
+        public ActionResult<City> Post([FromBody] CreateCity newCity)
+        {
+            City c = new City();
+            //TODO: Implement method
+            return Created("", c);
+        }
+
+        [HttpGet("/api/Cities")]
+        public ActionResult<IEnumerable<City>> GetCities()
+        {
+            List<City> c = _cityService.All().CityList;
+            foreach (var item in c)
+            {
+                item.Country = null;
+                item.PersonInCity = null;
+            }
+            return Ok(c);
+        }
+
+        [HttpDelete("/api/City/{id}")]
+        public void DeleteCity(int id)
+        {
+            if (!_cityService.Remove(id))
+                BadRequest();
+            Ok();
+        }
+
+
+
+        //---------------- Country / Countries -----------------
+
+        [HttpGet("/api/Countries")]
+        public ActionResult<IEnumerable<Country>> GetCountries()
+        {
+            List<Country> c = _countryService.All().CountryList;
+            foreach (var item in c)
+                item.CityInCountry = null;
+            return Ok(c);
+        }
+
     }
 }

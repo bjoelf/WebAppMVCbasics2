@@ -52,23 +52,29 @@ namespace WebAppMVCbasics2app.Database
         }
         public Person Read(int id)
         {
-            Person p = _peopleDbContext.People.Include(person => person.PersonLanguage).ThenInclude(perLan => perLan.Language)
-                                    .Include(person => person.LiveInCity)
-                                    .ThenInclude(incity => incity.Country)
-                                    .SingleOrDefault(row => row.Id == id);
 
-            if (p.PersonLanguage != null)
-                foreach (var item in p.PersonLanguage)
-                {
-                    item.Person = null;
-                    item.Language.PersonLanguage = null;
-                }
+            //Hantera null
+            Person p = _peopleDbContext.People.Find(id);
 
-            if (p.LiveInCity.Country != null)
-                p.LiveInCity.Country.CityInCountry = null;
+            if (p != null)
+            {
+                p = _peopleDbContext.People.Include(person => person.PersonLanguage).ThenInclude(perLan => perLan.Language)
+                                        .Include(person => person.LiveInCity)
+                                        .ThenInclude(incity => incity.Country)
+                                        .SingleOrDefault(row => row.Id == id);
 
-            p.LiveInCity.PersonInCity = null;
+                if (p.PersonLanguage != null)
+                    foreach (var item in p.PersonLanguage)
+                    {
+                        item.Person = null;
+                        item.Language.PersonLanguage = null;
+                    }
 
+                if (p.LiveInCity.Country != null)
+                    p.LiveInCity.Country.CityInCountry = null;
+
+                p.LiveInCity.PersonInCity = null;
+            }
             return p;
         }
 
